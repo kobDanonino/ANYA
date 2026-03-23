@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight Staff</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Botón lindo */
+        .btn-channel {
+            display: inline-block;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-channel:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-channel:active {
+            transform: scale(0.98);
+        }
+
+        /* Efecto de brillo */
+        .btn-channel {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            }
+            50% {
+                box-shadow: 0 5px 25px rgba(37, 211, 102, 0.6);
+            }
+            100% {
+                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            }
+        }
+
+        /* Decoración extra */
+        .stars {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Corazón animado */
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Bienvenido(a) a Moonlight Staff ✨</h1>
+        
+        <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" 
+           class="btn-channel" 
+           target="_blank">
+            📱 Channel
+        </a>
+        
+        <div class="stars">
+            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
+        </div>
+    </div>
+</body>
+</html>
