@@ -54,7 +54,7 @@
         /* Partículas flotantes */
         .particle {
             position: fixed;
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(100, 150, 255, 0.3);
             border-radius: 50%;
             pointer-events: none;
             animation: float 15s infinite linear;
@@ -180,13 +180,13 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Hora mejorada */
+        /* Hora mejorada - AHORA EN AZUL */
         .hora-mx {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             border-radius: 60px;
             padding: 12px 25px;
@@ -194,18 +194,25 @@
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.5);
             transition: all 0.3s ease;
         }
 
         .hora-mx:hover {
-            border-color: rgba(255, 215, 0, 0.6);
+            border-color: rgba(59, 130, 246, 0.9);
             transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
         .hora-mx span:first-child {
             font-size: 1.3rem;
             animation: pulse 2s infinite;
+        }
+
+        .hora-mx span:nth-child(2) {
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         @keyframes pulse {
@@ -218,10 +225,11 @@
             font-family: monospace;
             font-size: 1.2rem;
             background: rgba(0, 0, 0, 0.6);
-            padding: 4px 15px;
+            padding: 5px 15px;
             border-radius: 50px;
             letter-spacing: 1px;
-            color: #ffd700;
+            color: #3b82f6;
+            text-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
         }
 
         /* Botones mejorados */
@@ -363,6 +371,10 @@
             #hora {
                 font-size: 1rem;
             }
+            
+            .hora-mx span:nth-child(2) {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -387,32 +399,32 @@
             
             <div class="buttons">
                 <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" class="btn btn-channel" target="_blank">
-                    📱 Channel
+                     Channel
                 </a>
                 <a href="info.html" class="btn btn-info">
-                    ℹ️ Información
+                     Información
                 </a>
                 <a href="custom.html" class="btn btn-custom">
-                    ⚙️ Personalizar
+                     Personalizar
                 </a>
                 <a href="staff.html" class="btn btn-staff">
-                    👥 Staff
+                     Staff
                 </a>
                 <a href="registro.html" class="btn btn-registro">
-                    📝 Registro
+                     Registro
                 </a>
                 <a href="sugerencias.html" class="btn btn-sugerencia">
-                    💡 Sugerencia
+                     Sugerencia
                 </a>
                 <a href="comandos.html" class="btn btn-comandos">
-                    📋 Comandos
+                     Comandos
                 </a>
             </div>
         </div>
 
         <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
-            <p style="font-size: 0.7rem; margin-top: 8px;">© 2025 - Todos los derechos reservados</p>
+            <p style="font-size: 0.7rem; margin-top: 8px;">© 2026 - Gracias por apoyar a nuestros bots</p>
         </div>
     </div>
 
