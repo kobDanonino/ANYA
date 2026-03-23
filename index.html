@@ -110,6 +110,59 @@
             transform: scale(1.02);
         }
 
+        /* Info extra: contador y hora */
+        .info-extra {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50px;
+            padding: 12px 20px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .visitas {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffd700;
+        }
+
+        .visitas span:first-child {
+            font-size: 1.2rem;
+        }
+
+        .visitas-count {
+            font-weight: bold;
+            font-size: 1.1rem;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 3px 10px;
+            border-radius: 50px;
+        }
+
+        .hora-mx {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffd700;
+        }
+
+        .hora-mx span:first-child {
+            font-size: 1.2rem;
+        }
+
+        #hora {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 10px;
+            border-radius: 50px;
+        }
+
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -150,11 +203,67 @@
                     ⚙️ Personalizar
                 </a>
             </div>
+
+            <!-- Contador de visitas y hora local México -->
+            <div class="info-extra">
+                <div class="visitas">
+                    <span>👥</span>
+                    <span>Visitas:</span>
+                    <span class="visitas-count" id="contador">0</span>
+                </div>
+                <div class="hora-mx">
+                    <span>🇲🇽</span>
+                    <span>México:</span>
+                    <span id="hora">--:--:--</span>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
         </div>
     </div>
+
+    <script>
+        // ========== CONTADOR DE VISITAS ==========
+        // Usa localStorage para contar visitas únicas en este navegador
+        let visitas = localStorage.getItem('visitasMoonlight');
+        
+        if (visitas === null) {
+            // Primera visita
+            visitas = 1;
+        } else {
+            // Ya había visitado, aumenta el contador
+            visitas = parseInt(visitas) + 1;
+        }
+        
+        // Guardar el nuevo contador
+        localStorage.setItem('visitasMoonlight', visitas);
+        
+        // Mostrar en la página
+        document.getElementById('contador').textContent = visitas;
+        
+        // ========== HORA LOCAL DE MÉXICO (CDMX) ==========
+        function actualizarHoraMexico() {
+            const ahora = new Date();
+            
+            // Opciones para hora de México (CDMX, UTC-6 en invierno, UTC-5 en verano)
+            // Usamos la zona horaria de México (America/Mexico_City)
+            const opciones = {
+                timeZone: 'America/Mexico_City',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            
+            const horaMexico = ahora.toLocaleTimeString('es-MX', opciones);
+            document.getElementById('hora').textContent = horaMexico;
+        }
+        
+        // Actualizar hora cada segundo
+        actualizarHoraMexico();
+        setInterval(actualizarHoraMexico, 1000);
+    </script>
 </body>
 </html>
