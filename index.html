@@ -136,6 +136,10 @@
             background: linear-gradient(45deg, #f59e0b, #d97706);
         }
 
+        .btn-staff {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
         .btn:hover {
             transform: scale(1.02);
         }
@@ -186,6 +190,9 @@
                 <a href="custom.html" class="btn btn-custom">
                     ⚙️ Personalizar
                 </a>
+                <a href="staff.html" class="btn btn-staff">
+                    👥 Staff
+                </a>
             </div>
         </div>
 
@@ -196,11 +203,9 @@
 
     <script>
         // ========== HORA LOCAL DE MÉRIDA, YUCATÁN ==========
-        // Mérida está en UTC-6 todo el año (sin horario de verano)
         function actualizarHoraMerida() {
             const ahora = new Date();
             
-            // Opciones para hora de Mérida (UTC-6 fijo)
             const opciones = {
                 timeZone: 'America/Merida',
                 hour: '2-digit',
@@ -213,7 +218,6 @@
             document.getElementById('hora').textContent = horaMerida;
         }
         
-        // Actualizar hora cada segundo
         actualizarHoraMerida();
         setInterval(actualizarHoraMerida, 1000);
     </script>
