@@ -21,7 +21,7 @@
             padding: 20px;
         }
 
-        /* Lluvia de estrellas */
+        /* Contenedor de estrellas fugaces */
         .shooting-stars {
             position: fixed;
             top: 0;
@@ -33,31 +33,55 @@
             overflow: hidden;
         }
 
+        /* Estrella fugaz - BLANCA, GRANDE Y BRILLANTE */
         .star-trail {
             position: absolute;
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(180deg, rgba(255, 215, 0, 0.8), rgba(255, 255, 255, 0));
+            width: 4px;
+            height: 120px;
+            background: linear-gradient(180deg, 
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.8) 30%,
+                rgba(255, 255, 255, 0.4) 60%,
+                rgba(255, 255, 255, 0) 100%);
             border-radius: 50%;
-            animation: shoot 3s linear infinite;
+            filter: blur(1px);
+            animation: shoot 2.5s linear forwards;
             opacity: 0;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Estrella fugaz más grande (variante) */
+        .star-trail-large {
+            position: absolute;
+            width: 6px;
+            height: 180px;
+            background: linear-gradient(180deg, 
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.8) 30%,
+                rgba(255, 255, 255, 0.4) 60%,
+                rgba(255, 255, 255, 0) 100%);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: shoot 3s linear forwards;
+            opacity: 0;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
         }
 
         @keyframes shoot {
             0% {
-                transform: translateX(0) translateY(0) rotate(45deg);
+                transform: translateX(0) translateY(0) rotate(35deg);
                 opacity: 1;
             }
             70% {
-                opacity: 0.8;
+                opacity: 0.9;
             }
             100% {
-                transform: translateX(300px) translateY(300px) rotate(45deg);
+                transform: translateX(400px) translateY(400px) rotate(35deg);
                 opacity: 0;
             }
         }
 
-        /* Estrellas fijas de fondo */
+        /* Estrellas fijas de fondo - BLANCAS Y GRANDES */
         .stars-bg {
             position: fixed;
             top: 0;
@@ -72,47 +96,76 @@
             position: absolute;
             background: white;
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.8;
             animation: twinkle 2s infinite alternate;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .star-fixed.medium {
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+        }
+
+        .star-fixed.large {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
         }
 
         @keyframes twinkle {
             0% {
-                opacity: 0.2;
+                opacity: 0.4;
                 transform: scale(0.8);
             }
             100% {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1.2);
             }
         }
 
-        /* Partículas de estrellas pequeñas */
+        /* Partículas de estrellas brillantes */
         .star-dust {
             position: fixed;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 215, 0, 0.6);
+            background: white;
             border-radius: 50%;
             pointer-events: none;
-            animation: floatDust 8s infinite linear;
+            animation: floatDust 12s infinite linear;
             z-index: 0;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes floatDust {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             10% {
                 opacity: 0.8;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.6;
             }
             100% {
-                transform: translateY(-20vh) rotate(360deg);
+                transform: translateY(-20vh) translateX(50px) rotate(360deg);
                 opacity: 0;
+            }
+        }
+
+        /* Estrellas centelleantes adicionales */
+        .twinkling-star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: twinkleFast 1.5s infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes twinkleFast {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
@@ -354,7 +407,7 @@
     </style>
 </head>
 <body>
-    <!-- Lluvia de estrellas -->
+    <!-- Contenedores de estrellas -->
     <div class="shooting-stars" id="shootingStars"></div>
     <div class="stars-bg" id="starsBg"></div>
 
@@ -395,7 +448,7 @@
     </div>
 
     <script>
-        // Base de datos de comandos (misma que antes)
+        // Base de datos de comandos (completa)
         const comandosData = {
             info: {
                 nombre: "Información",
@@ -602,41 +655,59 @@
         // Renderizar categoría inicial
         renderizarComandos('info');
 
-        // ========== LLUVIA DE ESTRELLAS ==========
+        // ========== LLUVIA DE ESTRELLAS BLANCAS Y GRANDES ==========
         
-        // Estrellas fijas de fondo
+        // Estrellas fijas de fondo (muchas y de diferentes tamaños)
         function crearEstrellasFijas() {
             const starsContainer = document.getElementById('starsBg');
-            const numEstrellas = 200;
+            const numEstrellas = 400; // Muchas estrellas
             
             for (let i = 0; i < numEstrellas; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star-fixed');
-                const size = Math.random() * 3 + 1;
+                
+                // Tamaños variados: pequeñas, medianas y grandes
+                const rand = Math.random();
+                let size;
+                if (rand < 0.6) {
+                    size = Math.random() * 2 + 1; // pequeñas: 1-3px
+                    star.classList.add('small');
+                } else if (rand < 0.85) {
+                    size = Math.random() * 3 + 3; // medianas: 3-6px
+                    star.classList.add('medium');
+                } else {
+                    size = Math.random() * 4 + 6; // grandes: 6-10px
+                    star.classList.add('large');
+                }
+                
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 3}s`;
-                star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${Math.random() * 2 + 1.5}s`;
                 starsContainer.appendChild(star);
             }
         }
 
-        // Estrellas fugaces (cayendo)
+        // Estrellas fugaces (blancas, grandes, muchas)
         function crearEstrellaFugaz() {
             const container = document.getElementById('shootingStars');
-            const star = document.createElement('div');
-            star.classList.add('star-trail');
             
-            const startX = Math.random() * 80 + 10;
-            const startY = Math.random() * 30;
-            const duration = Math.random() * 2 + 1.5;
+            // 70% de probabilidad de ser normal, 30% de ser más grande
+            const isLarge = Math.random() < 0.3;
+            const star = document.createElement('div');
+            star.classList.add(isLarge ? 'star-trail-large' : 'star-trail');
+            
+            // Posiciones aleatorias por toda la pantalla
+            const startX = Math.random() * 90 + 5;
+            const startY = Math.random() * 60;
+            const duration = isLarge ? (Math.random() * 2 + 2.5) : (Math.random() * 1.5 + 1.8);
             
             star.style.left = `${startX}%`;
             star.style.top = `${startY}%`;
             star.style.animationDuration = `${duration}s`;
-            star.style.animationDelay = `${Math.random() * 5}s`;
+            star.style.animationDelay = `0s`;
             
             container.appendChild(star);
             
@@ -645,34 +716,58 @@
             }, duration * 1000);
         }
 
-        // Partículas de polvo de estrellas
+        // Partículas de polvo de estrellas (muchas)
         function crearPolvoEstrellas() {
-            const numParticulas = 50;
+            const numParticulas = 150;
             
             for (let i = 0; i < numParticulas; i++) {
                 const dust = document.createElement('div');
                 dust.classList.add('star-dust');
-                const size = Math.random() * 3 + 1;
+                const size = Math.random() * 4 + 1; // 1-5px
                 dust.style.width = `${size}px`;
                 dust.style.height = `${size}px`;
                 dust.style.left = `${Math.random() * 100}%`;
-                dust.style.animationDelay = `${Math.random() * 15}s`;
-                dust.style.animationDuration = `${Math.random() * 10 + 8}s`;
+                dust.style.animationDelay = `${Math.random() * 20}s`;
+                dust.style.animationDuration = `${Math.random() * 15 + 10}s`;
                 document.body.appendChild(dust);
             }
         }
 
-        // Generar estrellas fugaces cada cierto tiempo
+        // Estrellas centelleantes adicionales
+        function crearEstrellasCentelleantes() {
+            const numCentelleantes = 100;
+            
+            for (let i = 0; i < numCentelleantes; i++) {
+                const star = document.createElement('div');
+                star.classList.add('twinkling-star');
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                star.style.animationDuration = `${Math.random() * 1.5 + 0.8}s`;
+                document.body.appendChild(star);
+            }
+        }
+
+        // Generar todo
         crearEstrellasFijas();
         crearPolvoEstrellas();
+        crearEstrellasCentelleantes();
         
-        setInterval(() => {
-            crearEstrellaFugaz();
-        }, 3000);
+        // Generar muchas estrellas fugaces cada cierto tiempo
+        let fugazInterval = setInterval(() => {
+            // Generar entre 1 y 3 estrellas fugaces por vez
+            const numFugaces = Math.floor(Math.random() * 3) + 2;
+            for (let i = 0; i < numFugaces; i++) {
+                setTimeout(() => crearEstrellaFugaz(), i * 200);
+            }
+        }, 1800);
         
         // Generar algunas al inicio
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => crearEstrellaFugaz(), i * 800);
+        for (let i = 0; i < 12; i++) {
+            setTimeout(() => crearEstrellaFugaz(), i * 300);
         }
     </script>
 </body>
