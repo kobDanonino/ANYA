@@ -33,16 +33,54 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        h1 {
-            color: white;
-            font-size: 2rem;
+        /* Banner con imagen y texto iluminado */
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
             margin-bottom: 40px;
-            font-weight: 600;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .glow-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
             letter-spacing: 1px;
         }
 
-        /* Botón lindo */
-        .btn-channel {
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Botones */
+        .btn {
             display: inline-block;
             background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
@@ -53,44 +91,33 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            margin: 10px;
             border: none;
             cursor: pointer;
         }
 
-        .btn-channel:hover {
+        .btn-info {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
         }
 
-        .btn-channel:active {
-            transform: scale(0.98);
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
-        /* Efecto de brillo */
-        .btn-channel {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-            }
-            50% {
-                box-shadow: 0 5px 25px rgba(37, 211, 102, 0.6);
-            }
-            100% {
-                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-            }
-        }
-
-        /* Decoración extra */
-        .stars {
-            margin-top: 30px;
-            font-size: 0.9rem;
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Corazón animado */
         .heart {
             color: #ff6b6b;
             animation: heartbeat 1.5s infinite;
@@ -105,15 +132,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>✨ Bienvenido(a) a Moonlight Staff ✨</h1>
+        <!-- Banner con imagen y texto iluminado -->
+        <div class="banner">
+            <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
+            <span class="glow-text">✨ Moonlight Staff ✨</span>
+        </div>
+
+        <h1>Bienvenido(a) a Moonlight Staff</h1>
         
-        <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" 
-           class="btn-channel" 
-           target="_blank">
-            📱 Channel
-        </a>
+        <div class="buttons">
+            <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" class="btn" target="_blank">
+                📱 Channel
+            </a>
+            <a href="info.html" class="btn btn-info">
+                ℹ️ Información
+            </a>
+        </div>
         
-        <div class="stars">
+        <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
         </div>
     </div>
