@@ -73,8 +73,38 @@
             color: white;
             font-size: 1.6rem;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: 600;
+        }
+
+        /* Hora local - Arriba de los botones */
+        .hora-mx {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin-bottom: 25px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ffd700;
+            font-size: 0.9rem;
+        }
+
+        .hora-mx span:first-child {
+            font-size: 1.2rem;
+        }
+
+        #hora {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 12px;
+            border-radius: 50px;
         }
 
         .buttons {
@@ -110,59 +140,6 @@
             transform: scale(1.02);
         }
 
-        /* Info extra: contador y hora */
-        .info-extra {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 50px;
-            padding: 12px 20px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 0.85rem;
-        }
-
-        .visitas {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffd700;
-        }
-
-        .visitas span:first-child {
-            font-size: 1.2rem;
-        }
-
-        .visitas-count {
-            font-weight: bold;
-            font-size: 1.1rem;
-            background: rgba(255, 215, 0, 0.2);
-            padding: 3px 10px;
-            border-radius: 50px;
-        }
-
-        .hora-mx {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffd700;
-        }
-
-        .hora-mx span:first-child {
-            font-size: 1.2rem;
-        }
-
-        #hora {
-            font-weight: bold;
-            font-family: monospace;
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3px 10px;
-            border-radius: 50px;
-        }
-
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -192,6 +169,13 @@
         <div class="main-card">
             <h1>✨ Bienvenido(a) a Moonlight Staff ✨</h1>
             
+            <!-- Hora local de Mérida, Yucatán (arriba de los botones) -->
+            <div class="hora-mx">
+                <span>🇲🇽</span>
+                <span>Mérida, Yucatán:</span>
+                <span id="hora">--:--:--</span>
+            </div>
+            
             <div class="buttons">
                 <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" class="btn" target="_blank">
                     📱 Channel
@@ -203,20 +187,6 @@
                     ⚙️ Personalizar
                 </a>
             </div>
-
-            <!-- Contador de visitas y hora local México -->
-            <div class="info-extra">
-                <div class="visitas">
-                    <span>👥</span>
-                    <span>Visitas:</span>
-                    <span class="visitas-count" id="contador">0</span>
-                </div>
-                <div class="hora-mx">
-                    <span>🇲🇽</span>
-                    <span>México:</span>
-                    <span id="hora">--:--:--</span>
-                </div>
-            </div>
         </div>
 
         <div class="footer">
@@ -225,45 +195,27 @@
     </div>
 
     <script>
-        // ========== CONTADOR DE VISITAS ==========
-        // Usa localStorage para contar visitas únicas en este navegador
-        let visitas = localStorage.getItem('visitasMoonlight');
-        
-        if (visitas === null) {
-            // Primera visita
-            visitas = 1;
-        } else {
-            // Ya había visitado, aumenta el contador
-            visitas = parseInt(visitas) + 1;
-        }
-        
-        // Guardar el nuevo contador
-        localStorage.setItem('visitasMoonlight', visitas);
-        
-        // Mostrar en la página
-        document.getElementById('contador').textContent = visitas;
-        
-        // ========== HORA LOCAL DE MÉXICO (CDMX) ==========
-        function actualizarHoraMexico() {
+        // ========== HORA LOCAL DE MÉRIDA, YUCATÁN ==========
+        // Mérida está en UTC-6 todo el año (sin horario de verano)
+        function actualizarHoraMerida() {
             const ahora = new Date();
             
-            // Opciones para hora de México (CDMX, UTC-6 en invierno, UTC-5 en verano)
-            // Usamos la zona horaria de México (America/Mexico_City)
+            // Opciones para hora de Mérida (UTC-6 fijo)
             const opciones = {
-                timeZone: 'America/Mexico_City',
+                timeZone: 'America/Merida',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
                 hour12: false
             };
             
-            const horaMexico = ahora.toLocaleTimeString('es-MX', opciones);
-            document.getElementById('hora').textContent = horaMexico;
+            const horaMerida = ahora.toLocaleTimeString('es-MX', opciones);
+            document.getElementById('hora').textContent = horaMerida;
         }
         
         // Actualizar hora cada segundo
-        actualizarHoraMexico();
-        setInterval(actualizarHoraMexico, 1000);
+        actualizarHoraMerida();
+        setInterval(actualizarHoraMerida, 1000);
     </script>
 </body>
 </html>
