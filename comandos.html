@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight Staff - Comandos</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .glow-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Navegación de categorías */
+        .categories-nav {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+        }
+
+        .categories-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .categories-nav::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .categories-nav::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+
+        .category-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #1e1a2f;
+            font-weight: bold;
+        }
+
+        /* Contenido de comandos */
+        .commands-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 500px;
+        }
+
+        .category-title {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .command-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 10px 15px;
+            border-left: 3px solid #ffd700;
+            transition: all 0.2s ease;
+        }
+
+        .command-item:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(3px);
+        }
+
+        .command-name {
+            color: #ffd700;
+            font-weight: 600;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .command-aliases {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+            .category-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
+            <span class="glow-text">✨ Moonlight Staff ✨</span>
+        </div>
+
+        <!-- Categorías -->
+        <div class="categories-nav" id="categoriesNav">
+            <button class="category-btn active" data-cat="info">Información</button>
+            <button class="category-btn" data-cat="download">Download</button>
+            <button class="category-btn" data-cat="admin">Administración</button>
+            <button class="category-btn" data-cat="subbots">Sub-Bots</button>
+            <button class="category-btn" data-cat="tools">Tools</button>
+            <button class="category-btn" data-cat="imagenes">Imágenes</button>
+            <button class="category-btn" data-cat="search">Search</button>
+            <button class="category-btn" data-cat="stickers">Stickers</button>
+            <button class="category-btn" data-cat="rpg">RPG</button>
+            <button class="category-btn" data-cat="reacciones">Reacciones</button>
+            <button class="category-btn" data-cat="economy">Economy</button>
+        </div>
+
+        <!-- Contenido dinámico -->
+        <div class="commands-content" id="commandsContent">
+            <!-- Se llena con JavaScript -->
+        </div>
+
+        <div class="center">
+            <a href="index.html" class="back-btn">← Volver al inicio</a>
+        </div>
+
+        <div class="footer">
+            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de comandos
+        const comandosData = {
+            info: {
+                nombre: "Información",
+                comandos: [
+                    { principal: "❀ commands", alias: "help | menu" },
+                    { principal: "❀ botinfo", alias: "infobot" },
+                    { principal: "❀ level", alias: "lvl" },
+                    { principal: "❀ ping", alias: "speed | p" },
+                    { principal: "❀ status", alias: "estado | system" },
+                    { principal: "❀ uptime", alias: "activo | tiempo" },
+                    { principal: "❀ suggest", alias: "sugerencia" },
+                    { principal: "❀ report", alias: "reporte" },
+                    { principal: "❀ creador", alias: "owner" },
+                    { principal: "❀ top", alias: "ranking" },
+                    { principal: "❀ reportuser", alias: "" },
+                    { principal: "❀ totalfunciones", alias: "totalcmd" }
+                ]
+            },
+            download: {
+                nombre: "Download",
+                comandos: [
+                    { principal: "❀ play", alias: "playaudio | ytplay" },
+                    { principal: "❀ ig", alias: "instagram | reel" },
+                    { principal: "❀ fb", alias: "facebook | face" },
+                    { principal: "❀ twitter", alias: "tw | x" },
+                    { principal: "❀ tt", alias: "tiktok" },
+                    { principal: "❀ playdoc", alias: "mp4doc | ytdoc" },
+                    { principal: "❀ gitclone", alias: "github | git | clonar" },
+                    { principal: "❀ tiktoksearch2", alias: "ttsearch2" }
+                ]
+            },
+            admin: {
+                nombre: "Administración",
+                comandos: [
+                    { principal: "❀ demote", alias: "" },
+                    { principal: "❀ promote", alias: "" },
+                    { principal: "❀ close", alias: "cerrar | cerrargrupo" },
+                    { principal: "❀ open", alias: "abrir | abrirgrupo" },
+                    { principal: "❀ kick", alias: "echar | ban" },
+                    { principal: "❀ setgpname", alias: "" },
+                    { principal: "❀ tag", alias: "tagsay" },
+                    { principal: "❀ delwarn", alias: "" },
+                    { principal: "❀ warns", alias: "" },
+                    { principal: "❀ listadmin", alias: "" },
+                    { principal: "❀ link", alias: "enlace | invite" },
+                    { principal: "❀ invocar", alias: "tagall" },
+                    { principal: "❀ ruleta", alias: "" },
+                    { principal: "❀ onlyadmin", alias: "" },
+                    { principal: "❀ bot", alias: "" },
+                    { principal: "❀ setprimary", alias: "setprimario" },
+                    { principal: "❀ delprimary", alias: "eliminarprimario | removeprimary" },
+                    { principal: "❀ getprimary", alias: "botprimario | verprimario" }
+                ]
+            },
+            subbots: {
+                nombre: "Sub-Bots",
+                comandos: [
+                    { principal: "❀ serbot", alias: "serbotlight" },
+                    { principal: "❀ setpfp", alias: "cambiarfoto | setfoto" },
+                    { principal: "❀ setusername", alias: "setbotname" },
+                    { principal: "❀ leave", alias: "salir" },
+                    { principal: "❀ join", alias: "unir | entrar" },
+                    { principal: "❀ code", alias: "jadibot" },
+                    { principal: "❀ bots", alias: "sockets | listbots" },
+                    { principal: "❀ setbanner", alias: "cambiarbanner" },
+                    { principal: "❀ seticon", alias: "seticono" },
+                    { principal: "❀ setname", alias: "setnombre" }
+                ]
+            },
+            tools: {
+                nombre: "Tools",
+                comandos: [
+                    { principal: "❀ infoanime", alias: "animeinfo" },
+                    { principal: "❀ pfp", alias: "profilepic" },
+                    { principal: "❀ traducir", alias: "translate | traductor | tl" },
+                    { principal: "❀ tomp3", alias: "toaudio" },
+                    { principal: "❀ pn", alias: "numero | telefono" },
+                    { principal: "❀ lid", alias: "id | userid" }
+                ]
+            },
+            imagenes: {
+                nombre: "Imágenes",
+                comandos: [
+                    { principal: "❀ waifu", alias: "" },
+                    { principal: "❀ neko", alias: "" },
+                    { principal: "❀ imagen", alias: "" },
+                    { principal: "❀ pin", alias: "pinterest" }
+                ]
+            },
+            search: {
+                nombre: "Search",
+                comandos: [
+                    { principal: "❀ tiktoksearch", alias: "ttsearch | tiktoks | tts" },
+                    { principal: "❀ ytsearch", alias: "yts | youtubesearch" },
+                    { principal: "❀ tiktokstats", alias: "ttstats | tiktokstalk | ttstalk" },
+                    { principal: "❀ wikipedia", alias: "wiki" },
+                    { principal: "❀ tiktoksearch2", alias: "ttsearch2" }
+                ]
+            },
+            stickers: {
+                nombre: "Stickers",
+                comandos: [
+                    { principal: "❀ toimg", alias: "toimage" },
+                    { principal: "❀ s", alias: "sticker" },
+                    { principal: "❀ setmeta", alias: "" },
+                    { principal: "❀ brat", alias: "" },
+                    { principal: "❀ bratv", alias: "" },
+                    { principal: "❀ qc", alias: "quote | quotly" }
+                ]
+            },
+            rpg: {
+                nombre: "RPG",
+                comandos: [
+                    { principal: "❀ gay", alias: "gaymeter | gaylevel" },
+                    { principal: "❀ femboy", alias: "fem" },
+                    { principal: "❀ lesbiana", alias: "les" },
+                    { principal: "❀ furro", alias: "furry" },
+                    { principal: "❀ therian", alias: "therianmeter" },
+                    { principal: "❀ migajero", alias: "" },
+                    { principal: "❀ top2", alias: "" },
+                    { principal: "❀ facto", alias: "factos" },
+                    { principal: "❀ formarpareja", alias: "formarparejas | shippear" },
+                    { principal: "❀ ship", alias: "love | calcularamor" },
+                    { principal: "❀ pvp", alias: "fight" }
+                ]
+            },
+            reacciones: {
+                nombre: "Reacciones",
+                comandos: [
+                    { principal: "❀ rogar", alias: "" },
+                    { principal: "❀ ñam", alias: "" },
+                    { principal: "❀ eat", alias: "" },
+                    { principal: "❀ pat", alias: "" },
+                    { principal: "❀ sad", alias: "" },
+                    { principal: "❀ kiss", alias: "" },
+                    { principal: "❀ kisscheek", alias: "" }
+                ]
+            },
+            economy: {
+                nombre: "Economy",
+                comandos: [
+                    { principal: "❀ bank", alias: "inventario | balance | bal" },
+                    { principal: "❀ heal", alias: "curar | cure | recuperar" },
+                    { principal: "❀ minar", alias: "mine | mineria" },
+                    { principal: "❀ trabajar", alias: "work | trabajo" },
+                    { principal: "❀ crimen", alias: "crime | robar" },
+                    { principal: "❀ buy", alias: "comprar | vender | trade | cambiar" },
+                    { principal: "❀ aventura", alias: "adventure | explorar" },
+                    { principal: "❀ claim", alias: "daily | recompensa" },
+                    { principal: "❀ cofre", alias: "chest | caja | tesoro" },
+                    { principal: "❀ rt", alias: "ruleta | roulette | rojo | negro | red | black" },
+                    { principal: "❀ cf", alias: "caraocruz | coinflip" },
+                    { principal: "❀ suerte", alias: "luck | azar | random" },
+                    { principal: "❀ pay", alias: "pagar | transferir | enviar" },
+                    { principal: "❀ cazar", alias: "hunt | caza" },
+                    { principal: "❀ pescar", alias: "fish | pesca" },
+                    { principal: "❀ excavar", alias: "dig | excavacion" },
+                    { principal: "❀ tesoro", alias: "treasure | buscar" },
+                    { principal: "❀ reciclar", alias: "recycle | reciclaje" },
+                    { principal: "❀ mina2", alias: "minaprofund | deepmine" },
+                    { principal: "❀ mina3", alias: "minaencantada | magicmine" },
+                    { principal: "❀ comerciante", alias: "trader | mercader" },
+                    { principal: "❀ descansar", alias: "rest | meditar" },
+                    { principal: "❀ canjear", alias: "redeem | usarcode" }
+                ]
+            }
+        };
+
+        // Función para renderizar comandos
+        function renderizarComandos(categoria) {
+            const data = comandosData[categoria];
+            if (!data) return;
+
+            let html = `
+                <div class="category-title">${data.nombre}</div>
+                <div class="commands-grid">
+            `;
+
+            data.comandos.forEach(cmd => {
+                html += `
+                    <div class="command-item">
+                        <div class="command-name">${cmd.principal}</div>
+                        ${cmd.alias ? `<div class="command-aliases">${cmd.alias}</div>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            document.getElementById('commandsContent').innerHTML = html;
+        }
+
+        // Configurar navegación
+        const buttons = document.querySelectorAll('.category-btn');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Quitar active de todos
+                buttons.forEach(b => b.classList.remove('active'));
+                // Agregar active al clickeado
+                btn.classList.add('active');
+                // Renderizar categoría
+                const categoria = btn.getAttribute('data-cat');
+                renderizarComandos(categoria);
+            });
+        });
+
+        // Renderizar categoría inicial
+        renderizarComandos('info');
+    </script>
+</body>
+</html>
