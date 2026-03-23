@@ -55,7 +55,6 @@
             height: 3px;
             background: #ffd700;
             border-radius: 3px;
-            transition: all 0.3s ease;
         }
 
         /* Menú desplegable */
@@ -106,73 +105,130 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: rgba(0, 0, 0, 0.95);
+            background: linear-gradient(135deg, #1e1a2f, #2a2442);
             backdrop-filter: blur(10px);
-            padding: 25px;
+            padding: 30px;
             border-radius: 25px;
             width: 90%;
             max-width: 350px;
-            border: 1px solid #ffd700;
+            border: 2px solid #ffd700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .modal-content h3 {
             color: #ffd700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
+            font-size: 1.3rem;
         }
 
         .modal-content input {
             width: 100%;
             padding: 12px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.5);
             border-radius: 50px;
             color: white;
             margin-bottom: 15px;
             outline: none;
+            font-size: 1rem;
+        }
+
+        .modal-content input:focus {
+            border-color: #ffd700;
         }
 
         .modal-content button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
             border: none;
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
         .close-modal {
-            margin-top: 10px;
-            background: rgba(255, 100, 100, 0.3) !important;
+            background: rgba(255, 100, 100, 0.5) !important;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 100, 100, 0.8) !important;
         }
 
         /* Panel de registros */
-        .registros-panel {
-            max-width: 800px;
-            margin: 20px auto;
+        .registros-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            border-radius: 25px;
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            border: 1px solid #ffd700;
-            max-height: 80vh;
+        }
+
+        .registros-panel {
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            border-radius: 25px;
+            padding: 25px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
             overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 2px solid #ffd700;
+        }
+
+        .registros-panel h2 {
+            color: #1e1a2f;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
         .registro-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: white;
             border-radius: 15px;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-left: 3px solid #ffd700;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 5px solid #ffd700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #333;
+        }
+
+        .registro-item strong {
+            color: #667eea;
+        }
+
+        .btn-cerrar-panel {
+            background: linear-gradient(45deg, #f87171, #ef4444);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-cerrar-panel:hover {
+            transform: scale(1.02);
         }
 
         .banner {
@@ -220,6 +276,12 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .registro-card h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .input-group {
             margin-bottom: 20px;
         }
@@ -265,7 +327,6 @@
             transform: scale(1.02);
         }
 
-        /* Bola de estado */
         .estado-bola {
             display: flex;
             align-items: center;
@@ -281,7 +342,6 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            box-shadow: 0 0 10px currentColor;
             animation: pulse 1.5s infinite;
         }
 
@@ -300,7 +360,6 @@
             50% { opacity: 0.7; transform: scale(1.1); }
         }
 
-        /* Barra de carga */
         .loading-bar {
             width: 100%;
             height: 4px;
@@ -347,6 +406,74 @@
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.6);
         }
+
+        /* Alerta personalizada */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 4000;
+            animation: slideDown 0.3s ease;
+            font-weight: bold;
+            border-left: 5px solid;
+        }
+
+        .custom-alert.success {
+            border-left-color: #4ade80;
+            background: #f0fff4;
+            color: #166534;
+        }
+
+        .custom-alert.error {
+            border-left-color: #f87171;
+            background: #fff5f5;
+            color: #991b1b;
+        }
+
+        .custom-alert.info {
+            border-left-color: #ffd700;
+            background: #fff9e6;
+            color: #854d0e;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -50px;
+                opacity: 0;
+            }
+            to {
+                top: 20px;
+                opacity: 1;
+            }
+        }
+
+        .info-existente {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ffd700;
+        }
+
+        .info-existente h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .info-existente p {
+            color: white;
+            margin: 8px 0;
+        }
+
+        .info-existente strong {
+            color: #ffd700;
+        }
     </style>
 </head>
 <body>
@@ -376,7 +503,7 @@
         </div>
 
         <div class="registro-card" id="formularioRegistro">
-            <h2 style="color: white; text-align: center; margin-bottom: 20px;">📝 Registro de Usuario</h2>
+            <h2>📝 Registro de Usuario</h2>
             
             <div class="input-group">
                 <label>📱 Número (con código país)</label>
@@ -412,8 +539,8 @@
             </div>
 
             <div id="infoExistente" class="hidden">
-                <div style="background: rgba(0,0,0,0.5); border-radius: 20px; padding: 20px;">
-                    <h3 style="color: #ffd700; margin-bottom: 15px;">📋 Tu registro ya existe</h3>
+                <div class="info-existente">
+                    <h3>📋 Tu registro ya existe</h3>
                     <p><strong>👤 Nombre:</strong> <span id="existNombre"></span></p>
                     <p><strong>📧 Correo:</strong> <span id="existCorreo"></span></p>
                     <p><strong>📱 Número:</strong> <span id="existNumero"></span></p>
@@ -433,6 +560,17 @@
     </div>
 
     <script>
+        // Función para mostrar alertas personalizadas
+        function mostrarAlerta(mensaje, tipo) {
+            const alerta = document.createElement('div');
+            alerta.className = `custom-alert ${tipo}`;
+            alerta.textContent = mensaje;
+            document.body.appendChild(alerta);
+            setTimeout(() => {
+                alerta.remove();
+            }, 3000);
+        }
+
         // Inicializar almacenamiento
         let registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
 
@@ -492,7 +630,7 @@
             const descripcion = document.getElementById('descripcionRegistro').value.trim();
 
             if (!numero || !nombre || !correo || !descripcion) {
-                alert('Por favor, completa todos los campos');
+                mostrarAlerta('⚠️ Por favor, completa todos los campos', 'error');
                 return;
             }
 
@@ -512,9 +650,9 @@
                 };
                 localStorage.setItem('moonlight_registros', JSON.stringify(registros));
 
-                // Ocultar carga y mostrar éxito
+                // Ocultar carga
                 loadingBar.classList.add('hidden');
-                alert('✅ ¡Registro guardado con éxito!');
+                mostrarAlerta('✅ ¡Registro guardado con éxito!', 'success');
                 
                 // Limpiar y resetear
                 numeroInput.value = '';
@@ -523,6 +661,7 @@
                 document.getElementById('descripcionRegistro').value = '';
                 estadoBolaDiv.style.display = 'none';
                 camposRegistro.classList.add('hidden');
+                infoExistente.classList.add('hidden');
             }, 2000);
         });
 
@@ -546,8 +685,9 @@
             if (password === 'danonino5599') {
                 passwordModal.style.display = 'none';
                 mostrarTodosLosRegistros();
+                mostrarAlerta('🔓 Acceso concedido', 'success');
             } else {
-                alert('❌ Contraseña incorrecta');
+                mostrarAlerta('❌ Contraseña incorrecta. Intenta de nuevo', 'error');
             }
             document.getElementById('passwordInput').value = '';
         });
@@ -562,14 +702,15 @@
             const registrosArray = Object.values(registrosData);
             
             if (registrosArray.length === 0) {
-                alert('📭 No hay registros guardados aún');
+                mostrarAlerta('📭 No hay registros guardados aún', 'info');
                 return;
             }
 
             let html = `
-                <div class="registros-panel">
-                    <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px;">📋 Todos los Registros (${registrosArray.length})</h2>
-                    <button id="btnCerrarPanel" style="background: rgba(255,100,100,0.3); color: white; border: none; padding: 8px 15px; border-radius: 50px; cursor: pointer; margin-bottom: 15px;">❌ Cerrar</button>
+                <div class="registros-overlay" id="registrosOverlay">
+                    <div class="registros-panel">
+                        <h2>📋 Todos los Registros (${registrosArray.length})</h2>
+                        <button class="btn-cerrar-panel" id="btnCerrarPanel">❌ Cerrar</button>
             `;
             
             registrosArray.forEach((reg, index) => {
@@ -585,7 +726,7 @@
                 `;
             });
             
-            html += `</div>`;
+            html += `</div></div>`;
             
             const panelDiv = document.createElement('div');
             panelDiv.innerHTML = html;
@@ -593,6 +734,13 @@
             
             document.getElementById('btnCerrarPanel').addEventListener('click', () => {
                 panelDiv.remove();
+            });
+            
+            // Cerrar al hacer clic fuera del panel
+            document.getElementById('registrosOverlay').addEventListener('click', (e) => {
+                if (e.target.id === 'registrosOverlay') {
+                    panelDiv.remove();
+                }
             });
         }
     </script>
