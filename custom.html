@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight Staff - Personalizar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .glow-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .custom-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            color: #ffd700;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title span {
+            font-size: 1.8rem;
+        }
+
+        .comando-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .comando-code {
+            color: #ffd700;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .comando-desc {
+            color: #ccc;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-family: system-ui;
+        }
+
+        .advertencia {
+            background: rgba(255, 100, 100, 0.2);
+            border-left: 4px solid #ff6b6b;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #ffaaaa;
+        }
+
+        .advertencia2 {
+            background: rgba(255, 165, 0, 0.2);
+            border-left: 4px solid #ffa500;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #ffcc80;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
+            <span class="glow-text">✨ Moonlight Staff ✨</span>
+        </div>
+
+        <div class="custom-card">
+            <div class="section-title">
+                <span>⚙️</span> PERSONALIZAR <span>⚙️</span>
+            </div>
+
+            <div class="comando-item">
+                <div class="comando-code">❀ .setbanner</div>
+                <div class="comando-desc">Establece un banner respondiendo a una imagen</div>
+            </div>
+
+            <div class="comando-item">
+                <div class="comando-code">❀ .setname &lt;nombre&gt;</div>
+                <div class="comando-desc">Cambia el nombre del bot</div>
+            </div>
+
+            <div class="comando-item">
+                <div class="comando-code">❀ .seticon</div>
+                <div class="comando-desc">Establece un icono respondiendo a una imagen</div>
+            </div>
+
+            <div class="comando-item">
+                <div class="comando-code">❀ .setbotowner @user</div>
+                <div class="comando-desc">Cambia el owner mencionando a un usuario</div>
+            </div>
+
+            <div class="advertencia">
+                ⚠️ ADVERTENCIA: Para poder usar estos comandos debe contactar al owner para que te dé owner en tu sub-bot
+            </div>
+
+            <div class="advertencia2">
+                ⚠️ ADVERTENCIA: No es recomendable vincular sub-bots en cuentas principales
+            </div>
+
+            <div class="center">
+                <a href="https://chat.whatsapp.com/JCslqrWszf62iHCw4ssbOD?mode=gi_t" class="back-btn" target="_blank" style="margin-right: 10px;">
+                    🤖 Ser-Bot
+                </a>
+                <a href="https://chat.whatsapp.com/KINPtkeUvBY0jKMPR4vExz?mode=gi_t" class="back-btn" target="_blank">
+                    🛠️ Soporte
+                </a>
+            </div>
+        </div>
+
+        <div class="center">
+            <a href="index.html" class="back-btn">← Volver al inicio</a>
+        </div>
+
+        <div class="footer">
+            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
+        </div>
+    </div>
+</body>
+</html>
