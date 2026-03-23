@@ -77,7 +77,6 @@
             font-weight: 600;
         }
 
-        /* Hora local - Arriba de los botones */
         .hora-mx {
             display: flex;
             align-items: center;
@@ -144,6 +143,10 @@
             background: linear-gradient(45deg, #3b82f6, #1e40af);
         }
 
+        .btn-sugerencia {
+            background: linear-gradient(45deg, #ec489a, #db2777);
+        }
+
         .btn:hover {
             transform: scale(1.02);
         }
@@ -177,7 +180,6 @@
         <div class="main-card">
             <h1>✨ Bienvenido(a) a Moonlight Staff ✨</h1>
             
-            <!-- Hora local de Mérida, Yucatán (arriba de los botones) -->
             <div class="hora-mx">
                 <span>🇲🇽</span>
                 <span>Mérida, Yucatán:</span>
@@ -200,6 +202,9 @@
                 <a href="registro.html" class="btn btn-registro">
                     📝 Registro
                 </a>
+                <a href="sugerencias.html" class="btn btn-sugerencia">
+                    💡 Sugerencia
+                </a>
             </div>
         </div>
 
@@ -209,10 +214,8 @@
     </div>
 
     <script>
-        // ========== HORA LOCAL DE MÉRIDA, YUCATÁN ==========
         function actualizarHoraMerida() {
             const ahora = new Date();
-            
             const opciones = {
                 timeZone: 'America/Merida',
                 hour: '2-digit',
@@ -220,7 +223,6 @@
                 second: '2-digit',
                 hour12: false
             };
-            
             const horaMerida = ahora.toLocaleTimeString('es-MX', opciones);
             document.getElementById('hora').textContent = horaMerida;
         }
