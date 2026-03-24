@@ -123,6 +123,39 @@
             font-size: 1.5rem;
         }
 
+        .usuario-info {
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .usuario-info p {
+            color: #a0c0ff;
+            font-size: 0.85rem;
+        }
+
+        .usuario-info strong {
+            color: #60a5fa;
+        }
+
+        .btn-cambiar {
+            background: rgba(59, 130, 246, 0.3);
+            border: none;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .btn-cambiar:active {
+            transform: scale(0.95);
+        }
+
         .input-group {
             margin-bottom: 20px;
         }
@@ -238,10 +271,12 @@
             font-weight: bold;
             border-left: 4px solid;
             color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
-        .custom-alert.success { border-left-color: #4ade80; }
-        .custom-alert.error { border-left-color: #f87171; }
+        .custom-alert.success { border-left-color: #4ade80; background: #0f172a; }
+        .custom-alert.error { border-left-color: #f87171; background: #0f172a; }
+        .custom-alert.info { border-left-color: #3b82f6; background: #0f172a; }
 
         @keyframes slideDown {
             from { top: -50px; opacity: 0; }
@@ -269,6 +304,10 @@
         <div class="sugerencia-card">
             <h2>💡 Envíanos tu sugerencia</h2>
             
+            <div class="usuario-info" id="usuarioInfo">
+                <p>Cargando información de usuario...</p>
+            </div>
+            
             <div class="input-group">
                 <label>📝 Tu sugerencia</label>
                 <textarea id="sugerenciaTexto" placeholder="Escribe aquí tu sugerencia para mejorar Moonlight Staff..."></textarea>
@@ -286,7 +325,7 @@
         </div>
 
         <div class="footer">
-            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
+            <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
         </div>
     </div>
 
@@ -299,6 +338,48 @@
             setTimeout(() => alerta.remove(), 3000);
         }
 
+        // ========== IDENTIFICACIÓN DE USUARIO ==========
+        let usuarioActual = null;
+        let numeroUsuario = localStorage.getItem('usuario_sugerencias');
+        
+        function actualizarInfoUsuario() {
+            const registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
+            const usuarioInfoDiv = document.getElementById('usuarioInfo');
+            
+            if (numeroUsuario && registros[numeroUsuario]) {
+                usuarioActual = registros[numeroUsuario].nombre;
+                usuarioInfoDiv.innerHTML = `<p>✅ Enviando como: <strong>${escapeHtml(usuarioActual)}</strong> <button class="btn-cambiar" id="btnCambiarUsuario">Cambiar</button></p>`;
+            } else if (numeroUsuario) {
+                usuarioActual = numeroUsuario;
+                usuarioInfoDiv.innerHTML = `<p>⚠️ Enviando como: <strong>${escapeHtml(usuarioActual)}</strong> (no registrado) <button class="btn-cambiar" id="btnCambiarUsuario">Cambiar</button></p>`;
+            } else {
+                usuarioInfoDiv.innerHTML = `<p>❓ No identificado. <button class="btn-cambiar" id="btnCambiarUsuario">Identificarme</button></p>`;
+            }
+            
+            const btnCambiar = document.getElementById('btnCambiarUsuario');
+            if (btnCambiar) {
+                btnCambiar.addEventListener('click', () => {
+                    const nuevoNumero = prompt('Ingresa tu número de WhatsApp (con código país, ej: +521234567890):', numeroUsuario || '+52');
+                    if (nuevoNumero && nuevoNumero.length > 5) {
+                        numeroUsuario = nuevoNumero;
+                        localStorage.setItem('usuario_sugerencias', numeroUsuario);
+                        actualizarInfoUsuario();
+                        mostrarAlerta('✅ Usuario actualizado', 'success');
+                    }
+                });
+            }
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        actualizarInfoUsuario();
+
+        // ========== ENVIAR SUGERENCIA ==========
         let sugerencias = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
         const btnEnviar = document.getElementById('btnEnviarSugerencia');
         const sugerenciaTexto = document.getElementById('sugerenciaTexto');
@@ -310,12 +391,29 @@
                 mostrarAlerta('⚠️ Por favor, escribe una sugerencia', 'error');
                 return;
             }
+            
+            // Obtener nombre del usuario (si está registrado)
+            let nombreUsuario = 'Anónimo';
+            if (numeroUsuario) {
+                const registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
+                if (registros[numeroUsuario]) {
+                    nombreUsuario = registros[numeroUsuario].nombre;
+                } else {
+                    nombreUsuario = numeroUsuario;
+                }
+            }
 
             loadingBar.classList.remove('hidden');
             btnEnviar.disabled = true;
 
             setTimeout(() => {
-                sugerencias.push({ id: Date.now(), texto: texto, fecha: new Date().toLocaleString('es-MX') });
+                sugerencias.push({ 
+                    id: Date.now(), 
+                    texto: texto, 
+                    fecha: new Date().toLocaleString('es-MX'),
+                    usuario: nombreUsuario,
+                    numero: numeroUsuario || null
+                });
                 localStorage.setItem('moonlight_sugerencias', JSON.stringify(sugerencias));
                 loadingBar.classList.add('hidden');
                 btnEnviar.disabled = false;
@@ -324,6 +422,7 @@
             }, 1500);
         });
 
+        // ========== ESTRELLAS DE FONDO ==========
         function crearEstrellas() {
             const container = document.getElementById('starsSpace');
             if (!container) return;
@@ -341,6 +440,10 @@
             }
         }
         crearEstrellas();
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } } .custom-alert { animation: slideDown 0.3s ease; }`;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
