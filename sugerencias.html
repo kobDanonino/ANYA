@@ -123,39 +123,143 @@
             font-size: 1.5rem;
         }
 
-        .usuario-info {
-            background: rgba(59, 130, 246, 0.2);
-            border-radius: 20px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+        /* === NUEVO DISEÑO DE IDENTIFICACIÓN === */
+        .identidad-container {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(30, 64, 175, 0.1));
+            border-radius: 28px;
+            padding: 4px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(8px);
         }
 
-        .usuario-info p {
-            color: #a0c0ff;
-            font-size: 0.85rem;
+        .identidad-card {
+            background: rgba(10, 20, 40, 0.6);
+            border-radius: 24px;
+            padding: 18px 20px;
+            backdrop-filter: blur(4px);
         }
 
-        .usuario-info strong {
-            color: #60a5fa;
+        .identidad-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
-        .btn-cambiar {
-            background: rgba(59, 130, 246, 0.3);
-            border: none;
+        .identidad-icono {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .identidad-titulo {
+            flex: 1;
+        }
+
+        .identidad-titulo h3 {
             color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .identidad-titulo p {
+            color: #60a5fa;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .identidad-badge {
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            color: #60a5fa;
+            font-weight: 500;
+        }
+
+        .identidad-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .usuario-nombre {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 16px;
+            border-radius: 50px;
+            flex: 1;
+        }
+
+        .usuario-nombre span:first-child {
+            font-size: 1rem;
+        }
+
+        .usuario-nombre strong {
+            color: #60a5fa;
+            font-size: 0.9rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .btn-identidad {
+            background: rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-identidad:active {
+            transform: scale(0.95);
+            background: rgba(59, 130, 246, 0.5);
+        }
+
+        .estado-verificacion {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
             padding: 4px 12px;
             border-radius: 50px;
-            font-size: 0.7rem;
-            margin-left: 10px;
-            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .btn-cambiar:active {
-            transform: scale(0.95);
+        .estado-verificacion.verified {
+            color: #4ade80;
         }
 
+        .estado-verificacion.unverified {
+            color: #fbbf24;
+        }
+
+        .estado-verificacion.guest {
+            color: #94a3b8;
+        }
+
+        /* Input de número mejorado */
         .input-group {
             margin-bottom: 20px;
         }
@@ -165,11 +269,12 @@
             color: #a0c0ff;
             margin-bottom: 8px;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .input-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(59, 130, 246, 0.4);
             border-radius: 20px;
@@ -178,11 +283,12 @@
             outline: none;
             resize: vertical;
             min-height: 120px;
+            transition: all 0.2s ease;
         }
 
         .input-group textarea:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
         }
 
         .btn-enviar {
@@ -191,11 +297,12 @@
             color: white;
             font-size: 1rem;
             font-weight: bold;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.2s ease;
+            margin-top: 10px;
         }
 
         .btn-enviar:active {
@@ -288,6 +395,8 @@
             .glow-text { font-size: 1.2rem; }
             .avatar { width: 48px; height: 48px; }
             .sugerencia-card h2 { font-size: 1.3rem; }
+            .identidad-info { flex-direction: column; align-items: stretch; }
+            .btn-identidad { justify-content: center; }
         }
     </style>
 </head>
@@ -304,8 +413,30 @@
         <div class="sugerencia-card">
             <h2>💡 Envíanos tu sugerencia</h2>
             
-            <div class="usuario-info" id="usuarioInfo">
-                <p>Cargando información de usuario...</p>
+            <!-- NUEVO DISEÑO DE IDENTIFICACIÓN -->
+            <div class="identidad-container" id="identidadContainer">
+                <div class="identidad-card">
+                    <div class="identidad-header">
+                        <div class="identidad-icono">✨</div>
+                        <div class="identidad-titulo">
+                            <h3>Tu identidad</h3>
+                            <p>Así aparecerás en tus sugerencias</p>
+                        </div>
+                        <div class="identidad-badge" id="estadoBadge">Identidad</div>
+                    </div>
+                    <div class="identidad-info" id="identidadInfo">
+                        <div class="usuario-nombre">
+                            <span>👤</span>
+                            <strong id="nombreUsuario">Cargando...</strong>
+                        </div>
+                        <button class="btn-identidad" id="btnCambiarIdentidad">
+                            <span>🔄</span> Cambiar
+                        </button>
+                    </div>
+                    <div id="estadoVerificacion" class="estado-verificacion" style="margin-top: 10px; justify-content: center;">
+                        <span>🔄</span> <span id="estadoTexto">Verificando...</span>
+                    </div>
+                </div>
             </div>
             
             <div class="input-group">
@@ -344,29 +475,34 @@
         
         function actualizarInfoUsuario() {
             const registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
-            const usuarioInfoDiv = document.getElementById('usuarioInfo');
+            const nombreElement = document.getElementById('nombreUsuario');
+            const estadoBadge = document.getElementById('estadoBadge');
+            const estadoTexto = document.getElementById('estadoTexto');
+            const estadoVerificacion = document.getElementById('estadoVerificacion');
             
             if (numeroUsuario && registros[numeroUsuario]) {
                 usuarioActual = registros[numeroUsuario].nombre;
-                usuarioInfoDiv.innerHTML = `<p>✅ Enviando como: <strong>${escapeHtml(usuarioActual)}</strong> <button class="btn-cambiar" id="btnCambiarUsuario">Cambiar</button></p>`;
+                nombreElement.textContent = usuarioActual;
+                estadoBadge.textContent = '✅ Registrado';
+                estadoBadge.style.background = 'rgba(74, 222, 128, 0.3)';
+                estadoBadge.style.color = '#4ade80';
+                estadoTexto.innerHTML = '✅ Verificado · Cuenta registrada';
+                estadoVerificacion.className = 'estado-verificacion verified';
             } else if (numeroUsuario) {
                 usuarioActual = numeroUsuario;
-                usuarioInfoDiv.innerHTML = `<p>⚠️ Enviando como: <strong>${escapeHtml(usuarioActual)}</strong> (no registrado) <button class="btn-cambiar" id="btnCambiarUsuario">Cambiar</button></p>`;
+                nombreElement.textContent = usuarioActual;
+                estadoBadge.textContent = '⚠️ Invitado';
+                estadoBadge.style.background = 'rgba(251, 191, 36, 0.3)';
+                estadoBadge.style.color = '#fbbf24';
+                estadoTexto.innerHTML = '⚠️ No registrado · Identificado por número';
+                estadoVerificacion.className = 'estado-verificacion unverified';
             } else {
-                usuarioInfoDiv.innerHTML = `<p>❓ No identificado. <button class="btn-cambiar" id="btnCambiarUsuario">Identificarme</button></p>`;
-            }
-            
-            const btnCambiar = document.getElementById('btnCambiarUsuario');
-            if (btnCambiar) {
-                btnCambiar.addEventListener('click', () => {
-                    const nuevoNumero = prompt('Ingresa tu número de WhatsApp (con código país, ej: +521234567890):', numeroUsuario || '+52');
-                    if (nuevoNumero && nuevoNumero.length > 5) {
-                        numeroUsuario = nuevoNumero;
-                        localStorage.setItem('usuario_sugerencias', numeroUsuario);
-                        actualizarInfoUsuario();
-                        mostrarAlerta('✅ Usuario actualizado', 'success');
-                    }
-                });
+                nombreElement.textContent = 'Sin identificar';
+                estadoBadge.textContent = '❓ Anónimo';
+                estadoBadge.style.background = 'rgba(148, 163, 184, 0.3)';
+                estadoBadge.style.color = '#94a3b8';
+                estadoTexto.innerHTML = '❓ Anónimo · Identifícate para que sepamos quién eres';
+                estadoVerificacion.className = 'estado-verificacion guest';
             }
         }
         
@@ -377,7 +513,27 @@
             return div.innerHTML;
         }
         
+        // Función para cambiar identidad
+        function cambiarIdentidad() {
+            const nuevoNumero = prompt('Ingresa tu número de WhatsApp (con código país, ej: +521234567890):\n\nSi estás registrado, aparecerá tu nombre.', numeroUsuario || '+52');
+            if (nuevoNumero && nuevoNumero.length > 5) {
+                numeroUsuario = nuevoNumero;
+                localStorage.setItem('usuario_sugerencias', numeroUsuario);
+                actualizarInfoUsuario();
+                mostrarAlerta('✅ Identidad actualizada', 'success');
+            } else if (nuevoNumero === '') {
+                // Si el usuario borra el número, se desidentifica
+                numeroUsuario = null;
+                localStorage.removeItem('usuario_sugerencias');
+                actualizarInfoUsuario();
+                mostrarAlerta('👤 Ahora eres anónimo', 'info');
+            }
+        }
+        
         actualizarInfoUsuario();
+
+        // Botón cambiar identidad
+        document.getElementById('btnCambiarIdentidad').addEventListener('click', cambiarIdentidad);
 
         // ========== ENVIAR SUGERENCIA ==========
         let sugerencias = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
