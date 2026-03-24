@@ -21,75 +21,64 @@
             padding: 20px;
         }
 
-        /* Fondo animado con estrellas */
-        .stars {
+        /* Fondo animado premium */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
 
-        .star {
+        /* Partículas flotantes premium */
+        .particle-premium {
             position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 3s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Partículas flotantes */
-        .particle {
-            position: fixed;
-            background: rgba(100, 150, 255, 0.3);
+            background: radial-gradient(circle, rgba(255,215,0,0.4), transparent);
             border-radius: 50%;
             pointer-events: none;
-            animation: float 15s infinite linear;
-            z-index: 0;
+            animation: floatPremium 20s infinite linear;
         }
 
-        @keyframes float {
+        @keyframes floatPremium {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             10% {
-                opacity: 0.5;
+                opacity: 0.6;
             }
             90% {
-                opacity: 0.5;
+                opacity: 0.4;
             }
             100% {
-                transform: translateY(-20vh) rotate(360deg);
+                transform: translateY(-20vh) translateX(100px) rotate(360deg);
                 opacity: 0;
             }
+        }
+
+        /* Nebulosa de fondo */
+        .nebula {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(100, 80, 200, 0.15), transparent 70%);
+            pointer-events: none;
         }
 
         .container {
             position: relative;
             z-index: 10;
-            max-width: 650px;
+            max-width: 680px;
             margin: 0 auto;
-            animation: fadeInUp 0.8s ease-out;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -97,7 +86,7 @@
             }
         }
 
-        /* Banner mejorado */
+        /* Banner ultra premium */
         .banner {
             display: flex;
             align-items: center;
@@ -106,133 +95,199 @@
             margin-bottom: 35px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
-            padding: 15px 25px;
-            border-radius: 80px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            padding: 18px 30px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .banner:hover {
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.15);
-            transform: translateY(-2px);
+            border-color: rgba(255, 215, 0, 0.8);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px);
         }
 
         .avatar {
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            transition: all 0.4s ease;
         }
 
         .avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
         }
 
         .glow-text {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #fff, #ffd700, #ffaa00, #fff);
-            background-size: 300% auto;
+            background: linear-gradient(135deg, #fff, #ffd700, #ffaa00, #ffd700, #fff);
+            background-size: 400% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: shine 4s linear infinite;
-            letter-spacing: 1px;
+            animation: shinePremium 5s linear infinite;
+            letter-spacing: 2px;
         }
 
-        @keyframes shine {
+        @keyframes shinePremium {
             0% { background-position: 0% center; }
-            100% { background-position: 300% center; }
+            100% { background-position: 400% center; }
         }
 
-        /* Tarjeta principal */
+        /* Tarjeta principal - vidrio premium */
         .main-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 40px;
-            padding: 40px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border-radius: 50px;
+            padding: 45px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
         }
 
         .main-card:hover {
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
             color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff, #ffd700);
+            background: linear-gradient(135deg, #fff, #ffd700, #ffaa00);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
         }
 
-        /* Hora mejorada - AHORA EN AZUL */
+        /* Contenedor de hora y estado */
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        /* Hora premium */
         .hora-mx {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 60px;
-            padding: 12px 25px;
-            margin-bottom: 35px;
+            backdrop-filter: blur(15px);
+            border-radius: 80px;
+            padding: 12px 28px;
             width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(59, 130, 246, 0.5);
+            margin: 0 auto;
+            border: 1px solid rgba(59, 130, 246, 0.6);
             transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .hora-mx:hover {
             border-color: rgba(59, 130, 246, 0.9);
             transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
         }
 
         .hora-mx span:first-child {
-            font-size: 1.3rem;
-            animation: pulse 2s infinite;
+            font-size: 1.4rem;
+            animation: pulseSoft 2s infinite;
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
         }
 
         .hora-mx span:nth-child(2) {
             color: #ffffff;
             font-weight: 500;
             letter-spacing: 0.5px;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            font-size: 1rem;
         }
 
         #hora {
             font-weight: bold;
             font-family: monospace;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             background: rgba(0, 0, 0, 0.6);
-            padding: 5px 15px;
-            border-radius: 50px;
-            letter-spacing: 1px;
+            padding: 6px 18px;
+            border-radius: 60px;
+            letter-spacing: 2px;
             color: #3b82f6;
-            text-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
 
-        /* Botones mejorados */
+        /* Puntitos verdes animados - ACTIVE STATUS */
+        .active-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 8px 25px;
+            border-radius: 60px;
+            width: fit-content;
+            margin: 0 auto;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+            transition: all 0.2s ease;
+        }
+
+        .dot.active {
+            animation: pulseGreen 0.8s ease-in-out;
+            background-color: #22c55e;
+            box-shadow: 0 0 20px #22c55e;
+        }
+
+        @keyframes pulseGreen {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+                box-shadow: 0 0 5px #4ade80;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+                box-shadow: 0 0 25px #22c55e;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+                box-shadow: 0 0 10px #4ade80;
+            }
+        }
+
+        .status-text {
+            color: #4ade80;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Botones premium */
         .buttons {
             display: flex;
             flex-direction: column;
@@ -243,12 +298,12 @@
         .btn {
             display: inline-block;
             color: white;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            padding: 14px 30px;
+            padding: 14px 28px;
             border-radius: 60px;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             width: 85%;
             text-align: center;
             position: relative;
@@ -265,8 +320,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
         }
 
         .btn:hover::before {
@@ -274,9 +329,9 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            filter: brightness(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            filter: brightness(1.08);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
         .btn:active {
@@ -285,44 +340,44 @@
 
         .btn-channel {
             background: linear-gradient(135deg, #25D366, #128C7E);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
         }
 
         .btn-info {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.4);
         }
 
         .btn-custom {
             background: linear-gradient(135deg, #f59e0b, #d97706);
-            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 5px 25px rgba(245, 158, 11, 0.4);
         }
 
         .btn-staff {
             background: linear-gradient(135deg, #ef4444, #dc2626);
-            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 5px 25px rgba(239, 68, 68, 0.4);
         }
 
         .btn-registro {
             background: linear-gradient(135deg, #3b82f6, #1e40af);
-            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 5px 25px rgba(59, 130, 246, 0.4);
         }
 
         .btn-sugerencia {
             background: linear-gradient(135deg, #ec489a, #db2777);
-            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
+            box-shadow: 0 5px 25px rgba(236, 72, 153, 0.4);
         }
 
         .btn-comandos {
             background: linear-gradient(135deg, #14b8a6, #0d9488);
-            box-shadow: 0 5px 20px rgba(20, 184, 166, 0.3);
+            box-shadow: 0 5px 25px rgba(20, 184, 166, 0.4);
         }
 
-        /* Footer mejorado */
+        /* Footer premium */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 40px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.6);
@@ -350,7 +405,7 @@
             }
             
             h1 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
             
             .glow-text {
@@ -358,29 +413,31 @@
             }
             
             .avatar {
-                width: 50px;
-                height: 50px;
+                width: 55px;
+                height: 55px;
             }
             
             .btn {
                 width: 95%;
-                font-size: 1rem;
-                padding: 12px 20px;
+                font-size: 0.95rem;
+                padding: 12px 18px;
             }
             
             #hora {
                 font-size: 1rem;
             }
             
-            .hora-mx span:nth-child(2) {
-                font-size: 0.85rem;
+            .dot {
+                width: 8px;
+                height: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Fondo de estrellas -->
-    <div class="stars" id="stars"></div>
+    <!-- Fondo premium -->
+    <div class="animated-bg" id="animatedBg"></div>
+    <div class="nebula"></div>
 
     <div class="container">
         <div class="banner">
@@ -391,10 +448,20 @@
         <div class="main-card">
             <h1>✨ Bienvenido(a) a Moonlight Staff ✨</h1>
             
-            <div class="hora-mx">
-                <span>🌙</span>
-                <span>Mérida, Yucatán</span>
-                <span id="hora">--:--:--</span>
+            <div class="status-container">
+                <div class="hora-mx">
+                    <span>🌙</span>
+                    <span>México</span>
+                    <span id="hora">--:--:--</span>
+                </div>
+                
+                <!-- Puntitos verdes animados secuencialmente -->
+                <div class="active-status">
+                    <div class="dot" id="dot1"></div>
+                    <div class="dot" id="dot2"></div>
+                    <div class="dot" id="dot3"></div>
+                    <span class="status-text">ACTIVO</span>
+                </div>
             </div>
             
             <div class="buttons">
@@ -424,7 +491,7 @@
 
         <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
-            <p style="font-size: 0.7rem; margin-top: 8px;">© 2026 - Gracias por apoyar a nuestros bots</p>
+            <p style="font-size: 0.7rem; margin-top: 8px;">© 2026 - Gracias por apoyar nuestros bots</p>
         </div>
     </div>
 
@@ -446,44 +513,50 @@
         actualizarHoraMerida();
         setInterval(actualizarHoraMerida, 1000);
 
-        // Generar estrellas
-        function crearEstrellas() {
-            const starsContainer = document.getElementById('stars');
-            const numEstrellas = 150;
+        // ========== PUNTITOS VERDES ANIMADOS ==========
+        const dot1 = document.getElementById('dot1');
+        const dot2 = document.getElementById('dot2');
+        const dot3 = document.getElementById('dot3');
+        
+        let activeIndex = 0;
+        const dots = [dot1, dot2, dot3];
+        
+        function animateDots() {
+            // Quitar clase active de todos
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
             
-            for (let i = 0; i < numEstrellas; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                const size = Math.random() * 3 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                starsContainer.appendChild(star);
-            }
+            // Agregar clase active al actual
+            dots[activeIndex].classList.add('active');
+            
+            // Avanzar al siguiente
+            activeIndex = (activeIndex + 1) % dots.length;
         }
+        
+        // Iniciar animación: cada 800ms cambia el puntito brillante
+        animateDots();
+        setInterval(animateDots, 800);
 
-        // Generar partículas flotantes
-        function crearParticulas() {
-            const numParticulas = 20;
+        // ========== FONDO PREMIUM CON PARTÍCULAS ==========
+        function crearParticulasPremium() {
+            const container = document.getElementById('animatedBg');
+            const numParticulas = 40;
             
             for (let i = 0; i < numParticulas; i++) {
                 const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const size = Math.random() * 4 + 2;
+                particle.classList.add('particle-premium');
+                const size = Math.random() * 150 + 50;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 15}s`;
-                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                document.body.appendChild(particle);
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                container.appendChild(particle);
             }
         }
-
-        crearEstrellas();
-        crearParticulas();
+        
+        crearParticulasPremium();
     </script>
 </body>
 </html>
