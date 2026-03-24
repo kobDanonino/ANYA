@@ -2,205 +2,125 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Moonlight Staff - Sugerencias</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
-            padding: 20px;
+            background: radial-gradient(ellipse at 30% 40%, #010118, #0a0a2a, #000018);
             position: relative;
+            overflow-x: hidden;
+            padding: 20px;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Menú hamburguesa */
-        .menu-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1000;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .menu-icon:hover {
-            background: rgba(0, 0, 0, 0.9);
-            transform: scale(1.05);
-        }
-
-        .menu-icon div {
-            width: 25px;
-            height: 3px;
-            background: #ffd700;
-            border-radius: 3px;
-        }
-
-        .menu-dropdown {
-            position: fixed;
-            top: 75px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 15px;
-            min-width: 180px;
-            z-index: 999;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transform: scale(0);
-            opacity: 0;
-            transition: all 0.3s ease;
-            transform-origin: top right;
-        }
-
-        .menu-dropdown.show {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .menu-dropdown button {
-            width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .menu-dropdown button:hover {
-            transform: scale(1.02);
-        }
-
-        .modal {
-            display: none;
+        .stars-space {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .modal-content {
-            background: linear-gradient(135deg, #1e1a2f, #2a2442);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 350px;
-            border: 2px solid #ffd700;
+        .star-big {
+            position: absolute;
+            background: #aaccff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkleSpace 2s infinite alternate;
         }
 
-        .modal-content h3 {
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-align: center;
+        .star-small {
+            position: absolute;
+            background: #88aaff;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkleSpace 3s infinite alternate;
         }
 
-        .modal-content input {
+        @keyframes twinkleSpace {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .nebula-space {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            border-radius: 50px;
-            color: white;
-            margin-bottom: 15px;
-            outline: none;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(50, 80, 200, 0.12), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .modal-content button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 10px;
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
         }
 
-        .close-modal {
-            background: rgba(255, 100, 100, 0.5) !important;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .banner {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
             margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            border-radius: 60px;
-            backdrop-filter: blur(5px);
+            background: rgba(10, 20, 50, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 12px 22px;
+            border-radius: 80px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
         }
 
         .avatar {
-            width: 55px;
-            height: 55px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
 
         .glow-text {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #fff, #ffd700, #fff);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fff, #3b82f6, #60a5fa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
         }
 
         .sugerencia-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(10, 20, 50, 0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 35px 28px;
+            border: 1px solid rgba(59, 130, 246, 0.25);
         }
 
         .sugerencia-card h2 {
             color: white;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
         .input-group {
@@ -209,16 +129,16 @@
 
         .input-group label {
             display: block;
-            color: white;
+            color: #a0c0ff;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 500;
         }
 
         .input-group textarea {
             width: 100%;
             padding: 12px;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.4);
             border-radius: 20px;
             color: white;
             font-size: 1rem;
@@ -227,26 +147,31 @@
             min-height: 120px;
         }
 
+        .input-group textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+        }
+
         .btn-enviar {
             width: 100%;
-            background: linear-gradient(45deg, #f59e0b, #d97706);
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             padding: 12px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .btn-enviar:hover {
-            transform: scale(1.02);
+        .btn-enviar:active {
+            transform: scale(0.97);
         }
 
         .loading-bar {
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
             overflow: hidden;
@@ -256,8 +181,8 @@
         .loading-progress {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ffaa00);
-            animation: loading 2s ease forwards;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            animation: loading 1.5s ease forwards;
         }
 
         @keyframes loading {
@@ -265,19 +190,22 @@
             100% { width: 100%; }
         }
 
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
 
         .back-btn {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(59, 130, 246, 0.3);
             color: white;
-            padding: 12px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 20px;
-            text-align: center;
+            margin-top: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:active {
+            transform: scale(0.97);
         }
 
         .center {
@@ -286,9 +214,15 @@
 
         .footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .heart {
+            color: #ff6b6b;
         }
 
         .custom-alert {
@@ -296,147 +230,40 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: white;
-            padding: 15px 25px;
+            background: #1e293b;
+            padding: 12px 24px;
             border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             z-index: 4000;
             animation: slideDown 0.3s ease;
             font-weight: bold;
-            border-left: 5px solid;
+            border-left: 4px solid;
+            color: white;
         }
 
-        .custom-alert.success {
-            border-left-color: #4ade80;
-            background: #f0fff4;
-            color: #166534;
-        }
-
-        .custom-alert.error {
-            border-left-color: #f87171;
-            background: #fff5f5;
-            color: #991b1b;
-        }
+        .custom-alert.success { border-left-color: #4ade80; }
+        .custom-alert.error { border-left-color: #f87171; }
 
         @keyframes slideDown {
-            from {
-                top: -50px;
-                opacity: 0;
-            }
-            to {
-                top: 20px;
-                opacity: 1;
-            }
+            from { top: -50px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
         }
 
-        .sugerencias-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .sugerencias-panel {
-            background: linear-gradient(135deg, #fff, #f0f0f0);
-            border-radius: 25px;
-            padding: 25px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 2px solid #ffd700;
-        }
-
-        .sugerencias-panel h2 {
-            color: #1e1a2f;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .sugerencia-item {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-left: 5px solid #f59e0b;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .sugerencia-texto {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .sugerencia-fecha {
-            color: #888;
-            font-size: 0.7rem;
-            display: inline-block;
-        }
-
-        .btn-borrar {
-            background: linear-gradient(45deg, #f87171, #ef4444);
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-top: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-borrar:hover {
-            transform: scale(1.02);
-        }
-
-        .btn-cerrar-panel {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 20px;
-            width: 100%;
+        @media (max-width: 550px) {
+            .sugerencia-card { padding: 25px 18px; }
+            .glow-text { font-size: 1.2rem; }
+            .avatar { width: 48px; height: 48px; }
+            .sugerencia-card h2 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-    <div class="menu-icon" id="menuIcon">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <div class="menu-dropdown" id="menuDropdown">
-        <button id="btnVerSugerencias">💡 Ver Sugerencias</button>
-    </div>
-
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <h3>🔐 Acceso restringido</h3>
-            <input type="password" id="passwordInput" placeholder="Contraseña">
-            <button id="btnConfirmarPassword">Confirmar</button>
-            <button class="close-modal" id="btnCerrarModal">Cancelar</button>
-        </div>
-    </div>
+    <div class="stars-space" id="starsSpace"></div>
+    <div class="nebula-space"></div>
 
     <div class="container">
         <div class="banner">
             <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
-            <span class="glow-text">✨ Moonlight Staff ✨</span>
+            <span class="glow-text">Moonlight Staff</span>
         </div>
 
         <div class="sugerencia-card">
@@ -459,7 +286,7 @@
         </div>
 
         <div class="footer">
-            <p>Hecho con <span style="color: #ff6b6b;">❤️</span> para Moonlight Staff</p>
+            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
         </div>
     </div>
 
@@ -469,39 +296,27 @@
             alerta.className = `custom-alert ${tipo}`;
             alerta.textContent = mensaje;
             document.body.appendChild(alerta);
-            setTimeout(() => {
-                alerta.remove();
-            }, 3000);
+            setTimeout(() => alerta.remove(), 3000);
         }
 
-        // Inicializar almacenamiento de sugerencias
         let sugerencias = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
-
         const btnEnviar = document.getElementById('btnEnviarSugerencia');
         const sugerenciaTexto = document.getElementById('sugerenciaTexto');
         const loadingBar = document.getElementById('loadingBar');
 
         btnEnviar.addEventListener('click', function() {
             const texto = sugerenciaTexto.value.trim();
-            
             if (!texto) {
                 mostrarAlerta('⚠️ Por favor, escribe una sugerencia', 'error');
                 return;
             }
 
-            // Mostrar carga
             loadingBar.classList.remove('hidden');
             btnEnviar.disabled = true;
 
             setTimeout(() => {
-                // Guardar sugerencia
-                sugerencias.push({
-                    id: Date.now(),
-                    texto: texto,
-                    fecha: new Date().toLocaleString('es-MX')
-                });
+                sugerencias.push({ id: Date.now(), texto: texto, fecha: new Date().toLocaleString('es-MX') });
                 localStorage.setItem('moonlight_sugerencias', JSON.stringify(sugerencias));
-
                 loadingBar.classList.add('hidden');
                 btnEnviar.disabled = false;
                 mostrarAlerta('✅ ¡Sugerencia enviada con éxito!', 'success');
@@ -509,96 +324,23 @@
             }, 1500);
         });
 
-        // Menú hamburguesa
-        const menuIcon = document.getElementById('menuIcon');
-        const menuDropdown = document.getElementById('menuDropdown');
-        const passwordModal = document.getElementById('passwordModal');
-        const btnVerSugerencias = document.getElementById('btnVerSugerencias');
-
-        menuIcon.addEventListener('click', () => {
-            menuDropdown.classList.toggle('show');
-        });
-
-        btnVerSugerencias.addEventListener('click', () => {
-            menuDropdown.classList.remove('show');
-            passwordModal.style.display = 'flex';
-        });
-
-        document.getElementById('btnConfirmarPassword').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value;
-            if (password === 'danonino5599') {
-                passwordModal.style.display = 'none';
-                mostrarTodasLasSugerencias();
-                mostrarAlerta('🔓 Acceso concedido', 'success');
-            } else {
-                mostrarAlerta('❌ Contraseña incorrecta. Intenta de nuevo', 'error');
+        function crearEstrellas() {
+            const container = document.getElementById('starsSpace');
+            if (!container) return;
+            for (let i = 0; i < 180; i++) {
+                const isBig = Math.random() < 0.2;
+                const star = document.createElement('div');
+                star.classList.add(isBig ? 'star-big' : 'star-small');
+                const size = isBig ? Math.random() * 3 + 2 : Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(star);
             }
-            document.getElementById('passwordInput').value = '';
-        });
-
-        document.getElementById('btnCerrarModal').addEventListener('click', () => {
-            passwordModal.style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-        });
-
-        function mostrarTodasLasSugerencias() {
-            const sugerenciasData = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
-            
-            if (sugerenciasData.length === 0) {
-                mostrarAlerta('📭 No hay sugerencias aún', 'info');
-                return;
-            }
-
-            let html = `
-                <div class="sugerencias-overlay" id="sugerenciasOverlay">
-                    <div class="sugerencias-panel">
-                        <h2>💡 Todas las Sugerencias (${sugerenciasData.length})</h2>
-                        <button class="btn-cerrar-panel" id="btnCerrarPanel">❌ Cerrar</button>
-            `;
-            
-            sugerenciasData.forEach((sug, index) => {
-                html += `
-                    <div class="sugerencia-item" data-id="${sug.id}">
-                        <div class="sugerencia-texto">${escapeHtml(sug.texto)}</div>
-                        <div class="sugerencia-fecha">📅 ${sug.fecha}</div><br>
-                        <button class="btn-borrar" onclick="borrarSugerencia(${sug.id})">🗑️ Borrar</button>
-                    </div>
-                `;
-            });
-            
-            html += `</div></div>`;
-            
-            const panelDiv = document.createElement('div');
-            panelDiv.innerHTML = html;
-            document.body.appendChild(panelDiv);
-            
-            document.getElementById('btnCerrarPanel').addEventListener('click', () => {
-                panelDiv.remove();
-            });
-            
-            document.getElementById('sugerenciasOverlay').addEventListener('click', (e) => {
-                if (e.target.id === 'sugerenciasOverlay') {
-                    panelDiv.remove();
-                }
-            });
         }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        window.borrarSugerencia = function(id) {
-            let sugerenciasActuales = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
-            sugerenciasActuales = sugerenciasActuales.filter(s => s.id !== id);
-            localStorage.setItem('moonlight_sugerencias', JSON.stringify(sugerenciasActuales));
-            
-            // Cerrar panel actual y recargar
-            document.getElementById('sugerenciasOverlay').remove();
-            mostrarAlerta('🗑️ Sugerencia eliminada', 'success');
-            mostrarTodasLasSugerencias();
-        };
+        crearEstrellas();
     </script>
 </body>
 </html>
