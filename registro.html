@@ -2,284 +2,125 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Moonlight Staff - Registro</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
-            padding: 20px;
+            background: radial-gradient(ellipse at 30% 40%, #010118, #0a0a2a, #000018);
             position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .stars-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star-big {
+            position: absolute;
+            background: #aaccff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkleSpace 2s infinite alternate;
+        }
+
+        .star-small {
+            position: absolute;
+            background: #88aaff;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkleSpace 3s infinite alternate;
+        }
+
+        @keyframes twinkleSpace {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .nebula-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(50, 80, 200, 0.12), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
+            position: relative;
+            z-index: 10;
             max-width: 600px;
             margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
         }
 
-        /* Menú hamburguesa */
-        .menu-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1000;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .menu-icon:hover {
-            background: rgba(0, 0, 0, 0.9);
-            transform: scale(1.05);
-        }
-
-        .menu-icon div {
-            width: 25px;
-            height: 3px;
-            background: #ffd700;
-            border-radius: 3px;
-        }
-
-        /* Menú desplegable */
-        .menu-dropdown {
-            position: fixed;
-            top: 75px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 15px;
-            min-width: 180px;
-            z-index: 999;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transform: scale(0);
-            opacity: 0;
-            transition: all 0.3s ease;
-            transform-origin: top right;
-        }
-
-        .menu-dropdown.show {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .menu-dropdown button {
-            width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .menu-dropdown button:hover {
-            transform: scale(1.02);
-        }
-
-        /* Modal contraseña */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1e1a2f, #2a2442);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 350px;
-            border: 2px solid #ffd700;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-content h3 {
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            border-radius: 50px;
-            color: white;
-            margin-bottom: 15px;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .modal-content input:focus {
-            border-color: #ffd700;
-        }
-
-        .modal-content button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-
-        .close-modal {
-            background: rgba(255, 100, 100, 0.5) !important;
-        }
-
-        .close-modal:hover {
-            background: rgba(255, 100, 100, 0.8) !important;
-        }
-
-        /* Panel de registros */
-        .registros-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .registros-panel {
-            background: linear-gradient(135deg, #fff, #f0f0f0);
-            border-radius: 25px;
-            padding: 25px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 2px solid #ffd700;
-        }
-
-        .registros-panel h2 {
-            color: #1e1a2f;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .registro-item {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-left: 5px solid #ffd700;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            color: #333;
-        }
-
-        .registro-item strong {
-            color: #667eea;
-        }
-
-        .btn-cerrar-panel {
-            background: linear-gradient(45deg, #f87171, #ef4444);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 20px;
-            width: 100%;
-            font-size: 1rem;
-        }
-
-        .btn-cerrar-panel:hover {
-            transform: scale(1.02);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .banner {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
             margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            border-radius: 60px;
-            backdrop-filter: blur(5px);
+            background: rgba(10, 20, 50, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 12px 22px;
+            border-radius: 80px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
         }
 
         .avatar {
-            width: 55px;
-            height: 55px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
 
         .glow-text {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #fff, #ffd700, #fff);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fff, #3b82f6, #60a5fa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
         }
 
         .registro-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(10, 20, 50, 0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 35px 28px;
+            border: 1px solid rgba(59, 130, 246, 0.25);
         }
 
         .registro-card h2 {
             color: white;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
         .input-group {
@@ -288,20 +129,27 @@
 
         .input-group label {
             display: block;
-            color: white;
+            color: #a0c0ff;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .input-group input, .input-group textarea {
             width: 100%;
             padding: 12px;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.4);
             border-radius: 50px;
             color: white;
             font-size: 1rem;
             outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
         }
 
         .input-group textarea {
@@ -312,19 +160,19 @@
 
         .btn-registrar {
             width: 100%;
-            background: linear-gradient(45deg, #25D366, #128C7E);
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             padding: 12px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .btn-registrar:hover {
-            transform: scale(1.02);
+        .btn-registrar:active {
+            transform: scale(0.97);
         }
 
         .estado-bola {
@@ -339,20 +187,20 @@
         }
 
         .bola {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             animation: pulse 1.5s infinite;
         }
 
         .bola.verde {
             background: #4ade80;
-            box-shadow: 0 0 15px #4ade80;
+            box-shadow: 0 0 12px #4ade80;
         }
 
         .bola.roja {
             background: #f87171;
-            box-shadow: 0 0 15px #f87171;
+            box-shadow: 0 0 12px #f87171;
         }
 
         @keyframes pulse {
@@ -362,7 +210,7 @@
 
         .loading-bar {
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
             overflow: hidden;
@@ -372,7 +220,7 @@
         .loading-progress {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
             animation: loading 2s ease forwards;
         }
 
@@ -381,19 +229,45 @@
             100% { width: 100%; }
         }
 
-        .hidden {
-            display: none;
+        .hidden { display: none; }
+
+        .info-existente {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .info-existente h3 {
+            color: #60a5fa;
+            margin-bottom: 15px;
+        }
+
+        .info-existente p {
+            color: white;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .info-existente strong {
+            color: #60a5fa;
         }
 
         .back-btn {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(59, 130, 246, 0.3);
             color: white;
-            padding: 12px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 20px;
-            text-align: center;
+            margin-top: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:active {
+            transform: scale(0.97);
         }
 
         .center {
@@ -402,107 +276,61 @@
 
         .footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Alerta personalizada */
+        .heart {
+            color: #ff6b6b;
+        }
+
         .custom-alert {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: white;
-            color: #333;
-            padding: 15px 25px;
+            background: #1e293b;
+            padding: 12px 24px;
             border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             z-index: 4000;
             animation: slideDown 0.3s ease;
             font-weight: bold;
-            border-left: 5px solid;
+            border-left: 4px solid;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
-        .custom-alert.success {
-            border-left-color: #4ade80;
-            background: #f0fff4;
-            color: #166534;
-        }
-
-        .custom-alert.error {
-            border-left-color: #f87171;
-            background: #fff5f5;
-            color: #991b1b;
-        }
-
-        .custom-alert.info {
-            border-left-color: #ffd700;
-            background: #fff9e6;
-            color: #854d0e;
-        }
+        .custom-alert.success { border-left-color: #4ade80; background: #0f172a; }
+        .custom-alert.error { border-left-color: #f87171; background: #0f172a; }
+        .custom-alert.info { border-left-color: #3b82f6; background: #0f172a; }
 
         @keyframes slideDown {
-            from {
-                top: -50px;
-                opacity: 0;
-            }
-            to {
-                top: 20px;
-                opacity: 1;
-            }
+            from { top: -50px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
         }
 
-        .info-existente {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #ffd700;
-        }
-
-        .info-existente h3 {
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-
-        .info-existente p {
-            color: white;
-            margin: 8px 0;
-        }
-
-        .info-existente strong {
-            color: #ffd700;
+        @media (max-width: 550px) {
+            .registro-card { padding: 25px 18px; }
+            .glow-text { font-size: 1.2rem; }
+            .avatar { width: 48px; height: 48px; }
+            .registro-card h2 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-    <div class="menu-icon" id="menuIcon">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <div class="menu-dropdown" id="menuDropdown">
-        <button id="btnVerRegistros">📋 Ver Registros</button>
-    </div>
-
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <h3>🔐 Acceso restringido</h3>
-            <input type="password" id="passwordInput" placeholder="Contraseña">
-            <button id="btnConfirmarPassword">Confirmar</button>
-            <button class="close-modal" id="btnCerrarModal">Cancelar</button>
-        </div>
-    </div>
+    <div class="stars-space" id="starsSpace"></div>
+    <div class="nebula-space"></div>
 
     <div class="container">
         <div class="banner">
             <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
-            <span class="glow-text">✨ Moonlight Staff ✨</span>
+            <span class="glow-text">Moonlight Staff</span>
         </div>
 
-        <div class="registro-card" id="formularioRegistro">
+        <div class="registro-card">
             <h2>📝 Registro de Usuario</h2>
             
             <div class="input-group">
@@ -524,17 +352,14 @@
                     <label>👤 Nombre</label>
                     <input type="text" id="nombreRegistro" placeholder="Tu nombre completo">
                 </div>
-
                 <div class="input-group">
                     <label>📧 Correo</label>
                     <input type="email" id="correoRegistro" placeholder="tu@email.com">
                 </div>
-
                 <div class="input-group">
                     <label>📝 Descripción</label>
                     <textarea id="descripcionRegistro" placeholder="Cuéntanos sobre ti..."></textarea>
                 </div>
-
                 <button class="btn-registrar" id="btnGuardarRegistro">✅ Guardar Registro</button>
             </div>
 
@@ -555,26 +380,20 @@
         </div>
 
         <div class="footer">
-            <p>Hecho con <span style="color: #ff6b6b;">❤️</span> para Moonlight Staff</p>
+            <p>Hecho con <span class="heart">❤️</span> para Moonlight Staff</p>
         </div>
     </div>
 
     <script>
-        // Función para mostrar alertas personalizadas
         function mostrarAlerta(mensaje, tipo) {
             const alerta = document.createElement('div');
             alerta.className = `custom-alert ${tipo}`;
             alerta.textContent = mensaje;
             document.body.appendChild(alerta);
-            setTimeout(() => {
-                alerta.remove();
-            }, 3000);
+            setTimeout(() => alerta.remove(), 3000);
         }
 
-        // Inicializar almacenamiento
         let registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
-
-        // Elementos
         const numeroInput = document.getElementById('numeroRegistro');
         const estadoBolaDiv = document.getElementById('estadoBola');
         const bola = document.getElementById('bola');
@@ -584,12 +403,10 @@
         const infoExistente = document.getElementById('infoExistente');
         const btnGuardar = document.getElementById('btnGuardarRegistro');
 
-        // Verificar número en tiempo real
         numeroInput.addEventListener('input', function() {
             const numero = this.value.trim();
-            if (numero.length > 5) {
-                verificarRegistro(numero);
-            } else {
+            if (numero.length > 5) verificarRegistro(numero);
+            else {
                 estadoBolaDiv.style.display = 'none';
                 camposRegistro.classList.add('hidden');
                 infoExistente.classList.add('hidden');
@@ -598,13 +415,10 @@
 
         function verificarRegistro(numero) {
             if (registros[numero]) {
-                // Ya existe registro
                 bola.className = 'bola roja';
                 estadoTexto.textContent = '❌ Este número ya está registrado';
                 estadoBolaDiv.style.display = 'flex';
                 camposRegistro.classList.add('hidden');
-                
-                // Mostrar información existente
                 const registro = registros[numero];
                 document.getElementById('existNombre').textContent = registro.nombre;
                 document.getElementById('existCorreo').textContent = registro.correo;
@@ -613,7 +427,6 @@
                 document.getElementById('existFecha').textContent = registro.fecha;
                 infoExistente.classList.remove('hidden');
             } else {
-                // No existe registro
                 bola.className = 'bola verde';
                 estadoTexto.textContent = '✅ Número disponible para registro';
                 estadoBolaDiv.style.display = 'flex';
@@ -622,7 +435,6 @@
             }
         }
 
-        // Guardar nuevo registro
         btnGuardar.addEventListener('click', function() {
             const numero = numeroInput.value.trim();
             const nombre = document.getElementById('nombreRegistro').value.trim();
@@ -630,31 +442,19 @@
             const descripcion = document.getElementById('descripcionRegistro').value.trim();
 
             if (!numero || !nombre || !correo || !descripcion) {
-                mostrarAlerta('⚠️ Por favor, completa todos los campos', 'error');
+                mostrarAlerta('🍃 Por favor, completa todos los campos', 'error');
                 return;
             }
 
-            // Mostrar carga
             loadingBar.classList.remove('hidden');
             camposRegistro.classList.add('hidden');
             estadoBolaDiv.classList.add('hidden');
 
             setTimeout(() => {
-                // Guardar registro
-                registros[numero] = {
-                    numero: numero,
-                    nombre: nombre,
-                    correo: correo,
-                    descripcion: descripcion,
-                    fecha: new Date().toLocaleString('es-MX')
-                };
+                registros[numero] = { numero, nombre, correo, descripcion, fecha: new Date().toLocaleString('es-MX') };
                 localStorage.setItem('moonlight_registros', JSON.stringify(registros));
-
-                // Ocultar carga
                 loadingBar.classList.add('hidden');
-                mostrarAlerta('✅ ¡Registro guardado con éxito!', 'success');
-                
-                // Limpiar y resetear
+                mostrarAlerta('⭐ ¡Registro guardado con éxito!', 'success');
                 numeroInput.value = '';
                 document.getElementById('nombreRegistro').value = '';
                 document.getElementById('correoRegistro').value = '';
@@ -665,84 +465,23 @@
             }, 2000);
         });
 
-        // Menú hamburguesa
-        const menuIcon = document.getElementById('menuIcon');
-        const menuDropdown = document.getElementById('menuDropdown');
-        const passwordModal = document.getElementById('passwordModal');
-        const btnVerRegistros = document.getElementById('btnVerRegistros');
-
-        menuIcon.addEventListener('click', () => {
-            menuDropdown.classList.toggle('show');
-        });
-
-        btnVerRegistros.addEventListener('click', () => {
-            menuDropdown.classList.remove('show');
-            passwordModal.style.display = 'flex';
-        });
-
-        document.getElementById('btnConfirmarPassword').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value;
-            if (password === 'danonino5599') {
-                passwordModal.style.display = 'none';
-                mostrarTodosLosRegistros();
-                mostrarAlerta('🔓 Acceso concedido', 'success');
-            } else {
-                mostrarAlerta('❌ Contraseña incorrecta. Intenta de nuevo', 'error');
+        function crearEstrellas() {
+            const container = document.getElementById('starsSpace');
+            if (!container) return;
+            for (let i = 0; i < 180; i++) {
+                const isBig = Math.random() < 0.2;
+                const star = document.createElement('div');
+                star.classList.add(isBig ? 'star-big' : 'star-small');
+                const size = isBig ? Math.random() * 3 + 2 : Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(star);
             }
-            document.getElementById('passwordInput').value = '';
-        });
-
-        document.getElementById('btnCerrarModal').addEventListener('click', () => {
-            passwordModal.style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-        });
-
-        function mostrarTodosLosRegistros() {
-            const registrosData = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
-            const registrosArray = Object.values(registrosData);
-            
-            if (registrosArray.length === 0) {
-                mostrarAlerta('📭 No hay registros guardados aún', 'info');
-                return;
-            }
-
-            let html = `
-                <div class="registros-overlay" id="registrosOverlay">
-                    <div class="registros-panel">
-                        <h2>📋 Todos los Registros (${registrosArray.length})</h2>
-                        <button class="btn-cerrar-panel" id="btnCerrarPanel">❌ Cerrar</button>
-            `;
-            
-            registrosArray.forEach((reg, index) => {
-                html += `
-                    <div class="registro-item">
-                        <strong>#${index + 1}</strong><br>
-                        <strong>👤 Nombre:</strong> ${reg.nombre}<br>
-                        <strong>📧 Correo:</strong> ${reg.correo}<br>
-                        <strong>📱 Número:</strong> ${reg.numero}<br>
-                        <strong>📝 Descripción:</strong> ${reg.descripcion}<br>
-                        <strong>📅 Fecha:</strong> ${reg.fecha}<br>
-                    </div>
-                `;
-            });
-            
-            html += `</div></div>`;
-            
-            const panelDiv = document.createElement('div');
-            panelDiv.innerHTML = html;
-            document.body.appendChild(panelDiv);
-            
-            document.getElementById('btnCerrarPanel').addEventListener('click', () => {
-                panelDiv.remove();
-            });
-            
-            // Cerrar al hacer clic fuera del panel
-            document.getElementById('registrosOverlay').addEventListener('click', (e) => {
-                if (e.target.id === 'registrosOverlay') {
-                    panelDiv.remove();
-                }
-            });
         }
+        crearEstrellas();
     </script>
 </body>
 </html>
