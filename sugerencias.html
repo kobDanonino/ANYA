@@ -123,21 +123,19 @@
             font-size: 1.5rem;
         }
 
-        /* === NUEVO DISEÑO DE IDENTIFICACIÓN === */
+        /* Tarjeta de identidad */
         .identidad-container {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(30, 64, 175, 0.1));
             border-radius: 28px;
             padding: 4px;
             margin-bottom: 25px;
             border: 1px solid rgba(59, 130, 246, 0.3);
-            backdrop-filter: blur(8px);
         }
 
         .identidad-card {
             background: rgba(10, 20, 40, 0.6);
             border-radius: 24px;
             padding: 18px 20px;
-            backdrop-filter: blur(4px);
         }
 
         .identidad-header {
@@ -148,14 +146,14 @@
         }
 
         .identidad-icono {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, #3b82f6, #1e40af);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
 
@@ -165,9 +163,8 @@
 
         .identidad-titulo h3 {
             color: white;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            font-weight: 600;
         }
 
         .identidad-titulo p {
@@ -181,9 +178,12 @@
             border-radius: 50px;
             padding: 6px 14px;
             font-size: 0.7rem;
-            color: #60a5fa;
             font-weight: 500;
         }
+
+        .identidad-badge.verified { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .identidad-badge.unverified { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .identidad-badge.guest { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
 
         .identidad-info {
             display: flex;
@@ -199,31 +199,23 @@
         .usuario-nombre {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: rgba(0, 0, 0, 0.4);
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 50px;
             flex: 1;
         }
 
-        .usuario-nombre span:first-child {
-            font-size: 1rem;
-        }
-
-        .usuario-nombre strong {
-            color: #60a5fa;
-            font-size: 0.9rem;
-            font-weight: 600;
-            word-break: break-all;
-        }
+        .usuario-nombre span:first-child { font-size: 1.1rem; }
+        .usuario-nombre strong { color: #60a5fa; font-size: 0.9rem; font-weight: 600; word-break: break-all; }
 
         .btn-identidad {
             background: rgba(59, 130, 246, 0.3);
             border: 1px solid rgba(59, 130, 246, 0.5);
             color: white;
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -232,34 +224,117 @@
             gap: 6px;
         }
 
-        .btn-identidad:active {
-            transform: scale(0.95);
-            background: rgba(59, 130, 246, 0.5);
-        }
+        .btn-identidad:active { transform: scale(0.95); background: rgba(59, 130, 246, 0.5); }
 
         .estado-verificacion {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             font-size: 0.7rem;
-            padding: 4px 12px;
+            margin-top: 10px;
+            padding: 6px 12px;
             border-radius: 50px;
             background: rgba(0, 0, 0, 0.3);
         }
 
-        .estado-verificacion.verified {
-            color: #4ade80;
+        .estado-verificacion.verified { color: #4ade80; }
+        .estado-verificacion.unverified { color: #fbbf24; }
+        .estado-verificacion.guest { color: #94a3b8; }
+
+        /* Modal de identificación elegante */
+        .identidad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .estado-verificacion.unverified {
-            color: #fbbf24;
+        .identidad-modal-content {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border-radius: 40px;
+            padding: 30px;
+            max-width: 380px;
+            width: 100%;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            text-align: center;
+            animation: modalFadeIn 0.3s ease;
         }
 
-        .estado-verificacion.guest {
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .identidad-modal-content h3 {
+            color: #60a5fa;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .identidad-modal-content p {
             color: #94a3b8;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
         }
 
-        /* Input de número mejorado */
+        .identidad-modal-content input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 60px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .identidad-modal-content input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-modal-confirm {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+        }
+
+        .btn-modal-cancel {
+            background: rgba(100, 100, 100, 0.3);
+            color: white;
+        }
+
+        .btn-modal-clear {
+            background: rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        .modal-buttons button:active { transform: scale(0.97); }
+
         .input-group {
             margin-bottom: 20px;
         }
@@ -269,7 +344,6 @@
             color: #a0c0ff;
             margin-bottom: 8px;
             font-weight: 500;
-            font-size: 0.9rem;
         }
 
         .input-group textarea {
@@ -277,13 +351,12 @@
             padding: 14px;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 20px;
+            border-radius: 24px;
             color: white;
             font-size: 1rem;
             outline: none;
             resize: vertical;
             min-height: 120px;
-            transition: all 0.2s ease;
         }
 
         .input-group textarea:focus {
@@ -299,15 +372,13 @@
             font-weight: bold;
             padding: 14px;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             transition: all 0.2s ease;
             margin-top: 10px;
         }
 
-        .btn-enviar:active {
-            transform: scale(0.97);
-        }
+        .btn-enviar:active { transform: scale(0.97); }
 
         .loading-bar {
             width: 100%;
@@ -344,13 +415,8 @@
             transition: all 0.2s ease;
         }
 
-        .back-btn:active {
-            transform: scale(0.97);
-        }
-
-        .center {
-            text-align: center;
-        }
+        .back-btn:active { transform: scale(0.97); }
+        .center { text-align: center; }
 
         .footer {
             text-align: center;
@@ -361,9 +427,7 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        .heart {
-            color: #ff6b6b;
-        }
+        .heart { color: #ff6b6b; }
 
         .custom-alert {
             position: fixed;
@@ -404,6 +468,20 @@
     <div class="stars-space" id="starsSpace"></div>
     <div class="nebula-space"></div>
 
+    <!-- Modal de identificación elegante -->
+    <div class="identidad-modal" id="identidadModal">
+        <div class="identidad-modal-content">
+            <h3>✨ Identifícate</h3>
+            <p>Ingresa tu número de WhatsApp para identificar tus sugerencias</p>
+            <input type="tel" id="modalNumeroInput" placeholder="+52 999 204 2946" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="btn-modal-confirm" id="modalConfirmar">✅ Confirmar</button>
+                <button class="btn-modal-clear" id="modalLimpiar">🗑️ Borrar</button>
+                <button class="btn-modal-cancel" id="modalCancelar">❌ Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="banner">
             <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
@@ -413,8 +491,7 @@
         <div class="sugerencia-card">
             <h2>💡 Envíanos tu sugerencia</h2>
             
-            <!-- NUEVO DISEÑO DE IDENTIFICACIÓN -->
-            <div class="identidad-container" id="identidadContainer">
+            <div class="identidad-container">
                 <div class="identidad-card">
                     <div class="identidad-header">
                         <div class="identidad-icono">✨</div>
@@ -424,17 +501,18 @@
                         </div>
                         <div class="identidad-badge" id="estadoBadge">Identidad</div>
                     </div>
-                    <div class="identidad-info" id="identidadInfo">
+                    <div class="identidad-info">
                         <div class="usuario-nombre">
                             <span>👤</span>
                             <strong id="nombreUsuario">Cargando...</strong>
                         </div>
                         <button class="btn-identidad" id="btnCambiarIdentidad">
-                            <span>🔄</span> Cambiar
+                            <span>✏️</span> Cambiar
                         </button>
                     </div>
-                    <div id="estadoVerificacion" class="estado-verificacion" style="margin-top: 10px; justify-content: center;">
-                        <span>🔄</span> <span id="estadoTexto">Verificando...</span>
+                    <div class="estado-verificacion" id="estadoVerificacion">
+                        <span id="estadoIcono">🔄</span>
+                        <span id="estadoTexto">Verificando...</span>
                     </div>
                 </div>
             </div>
@@ -470,7 +548,6 @@
         }
 
         // ========== IDENTIFICACIÓN DE USUARIO ==========
-        let usuarioActual = null;
         let numeroUsuario = localStorage.getItem('usuario_sugerencias');
         
         function actualizarInfoUsuario() {
@@ -478,62 +555,92 @@
             const nombreElement = document.getElementById('nombreUsuario');
             const estadoBadge = document.getElementById('estadoBadge');
             const estadoTexto = document.getElementById('estadoTexto');
+            const estadoIcono = document.getElementById('estadoIcono');
             const estadoVerificacion = document.getElementById('estadoVerificacion');
             
             if (numeroUsuario && registros[numeroUsuario]) {
-                usuarioActual = registros[numeroUsuario].nombre;
-                nombreElement.textContent = usuarioActual;
-                estadoBadge.textContent = '✅ Registrado';
-                estadoBadge.style.background = 'rgba(74, 222, 128, 0.3)';
-                estadoBadge.style.color = '#4ade80';
-                estadoTexto.innerHTML = '✅ Verificado · Cuenta registrada';
+                const nombre = registros[numeroUsuario].nombre;
+                nombreElement.textContent = nombre;
+                estadoBadge.textContent = ' Registrado';
+                estadoBadge.className = 'identidad-badge verified';
+                estadoIcono.textContent = '';
+                estadoTexto.textContent = 'Verificado · Cuenta registrada';
                 estadoVerificacion.className = 'estado-verificacion verified';
             } else if (numeroUsuario) {
-                usuarioActual = numeroUsuario;
-                nombreElement.textContent = usuarioActual;
-                estadoBadge.textContent = '⚠️ Invitado';
-                estadoBadge.style.background = 'rgba(251, 191, 36, 0.3)';
-                estadoBadge.style.color = '#fbbf24';
-                estadoTexto.innerHTML = '⚠️ No registrado · Identificado por número';
+                nombreElement.textContent = numeroUsuario;
+                estadoBadge.textContent = '📱 Invitado';
+                estadoBadge.className = 'identidad-badge unverified';
+                estadoIcono.textContent = '⚠️';
+                estadoTexto.textContent = 'No registrado · Identificado por número';
                 estadoVerificacion.className = 'estado-verificacion unverified';
             } else {
                 nombreElement.textContent = 'Sin identificar';
                 estadoBadge.textContent = '❓ Anónimo';
-                estadoBadge.style.background = 'rgba(148, 163, 184, 0.3)';
-                estadoBadge.style.color = '#94a3b8';
-                estadoTexto.innerHTML = '❓ Anónimo · Identifícate para que sepamos quién eres';
+                estadoBadge.className = 'identidad-badge guest';
+                estadoIcono.textContent = '❓';
+                estadoTexto.textContent = 'Anónimo · Identifícate para que sepamos quién eres';
                 estadoVerificacion.className = 'estado-verificacion guest';
             }
         }
         
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        // Función para cambiar identidad
-        function cambiarIdentidad() {
-            const nuevoNumero = prompt('Ingresa tu número de WhatsApp (con código país, ej: +521234567890):\n\nSi estás registrado, aparecerá tu nombre.', numeroUsuario || '+52');
-            if (nuevoNumero && nuevoNumero.length > 5) {
-                numeroUsuario = nuevoNumero;
+        function guardarNumero(numero) {
+            if (numero && numero.trim().length > 5) {
+                numeroUsuario = numero.trim();
                 localStorage.setItem('usuario_sugerencias', numeroUsuario);
                 actualizarInfoUsuario();
                 mostrarAlerta('✅ Identidad actualizada', 'success');
-            } else if (nuevoNumero === '') {
-                // Si el usuario borra el número, se desidentifica
+                return true;
+            } else if (numero === '') {
                 numeroUsuario = null;
                 localStorage.removeItem('usuario_sugerencias');
                 actualizarInfoUsuario();
                 mostrarAlerta('👤 Ahora eres anónimo', 'info');
+                return true;
             }
+            return false;
+        }
+
+        // Modal elegante
+        const modal = document.getElementById('identidadModal');
+        const modalInput = document.getElementById('modalNumeroInput');
+        
+        function abrirModal() {
+            modalInput.value = numeroUsuario || '';
+            modal.style.display = 'flex';
         }
         
+        function cerrarModal() {
+            modal.style.display = 'none';
+        }
+        
+        document.getElementById('btnCambiarIdentidad').addEventListener('click', abrirModal);
+        
+        document.getElementById('modalConfirmar').addEventListener('click', () => {
+            const nuevoNumero = modalInput.value.trim();
+            if (nuevoNumero && nuevoNumero.length > 5) {
+                guardarNumero(nuevoNumero);
+                cerrarModal();
+            } else if (nuevoNumero === '') {
+                guardarNumero('');
+                cerrarModal();
+            } else {
+                mostrarAlerta('⚠️ Ingresa un número válido (mínimo 6 caracteres)', 'error');
+            }
+        });
+        
+        document.getElementById('modalLimpiar').addEventListener('click', () => {
+            guardarNumero('');
+            cerrarModal();
+        });
+        
+        document.getElementById('modalCancelar').addEventListener('click', cerrarModal);
+        
+        // Cerrar modal al hacer clic fuera
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+        
         actualizarInfoUsuario();
-
-        // Botón cambiar identidad
-        document.getElementById('btnCambiarIdentidad').addEventListener('click', cambiarIdentidad);
 
         // ========== ENVIAR SUGERENCIA ==========
         let sugerencias = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
@@ -548,7 +655,6 @@
                 return;
             }
             
-            // Obtener nombre del usuario (si está registrado)
             let nombreUsuario = 'Anónimo';
             if (numeroUsuario) {
                 const registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
