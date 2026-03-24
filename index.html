@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Moonlight Staff</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 40%, #010118, #0a0a2a, #000018);
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .stars-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star-big {
+            position: absolute;
+            background: #aaccff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkleSpace 2s infinite alternate;
+        }
+
+        .star-small {
+            position: absolute;
+            background: #88aaff;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkleSpace 3s infinite alternate;
+        }
+
+        @keyframes twinkleSpace {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .nebula-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(50, 80, 200, 0.12), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Menú hamburguesa */
+        .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(10, 20, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .menu-icon:active {
+            transform: scale(0.95);
+        }
+
+        .menu-icon div {
+            width: 24px;
+            height: 2px;
+            background: #60a5fa;
+            border-radius: 2px;
+        }
+
+        .menu-dropdown {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            background: rgba(10, 20, 50, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 12px;
+            min-width: 200px;
+            z-index: 999;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transform: scale(0);
+            opacity: 0;
+            transition: all 0.2s ease;
+            transform-origin: top right;
+        }
+
+        .menu-dropdown.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .menu-dropdown button {
+            width: 100%;
+            background: rgba(59, 130, 246, 0.3);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-dropdown button:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-dropdown button:active {
+            transform: scale(0.97);
+            background: rgba(59, 130, 246, 0.5);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            padding: 28px;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 350px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .modal-content h3 {
+            color: #60a5fa;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 50px;
+            color: white;
+            margin-bottom: 15px;
+            outline: none;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .close-modal {
+            background: rgba(100, 100, 100, 0.5) !important;
+        }
+
+        .data-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .data-panel {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 28px;
+            padding: 25px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid #3b82f6;
+        }
+
+        .data-panel h2 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .data-item {
+            background: white;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .data-item strong {
+            color: #1e40af;
+        }
+
+        .btn-cerrar-panel {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 680px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 30px;
+            background: rgba(10, 20, 50, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 12px 22px;
+            border-radius: 80px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .avatar {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .glow-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fff, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .main-card {
+            background: rgba(10, 20, 50, 0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 35px 28px;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        h1 {
+            color: white;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-bottom: 28px;
+            font-weight: 600;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .hora-mx {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 8px 20px;
+            width: fit-content;
+            margin: 0 auto;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .hora-mx span:first-child { font-size: 1.1rem; }
+        .hora-mx span:nth-child(2) { color: #a0c0ff; font-size: 0.85rem; }
+
+        #hora {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 12px;
+            border-radius: 40px;
+            color: #60a5fa;
+        }
+
+        .active-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 16px;
+            border-radius: 40px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #22c55e;
+            opacity: 0.4;
+        }
+
+        .dot.active {
+            opacity: 1;
+            background-color: #4ade80;
+            box-shadow: 0 0 12px #4ade80;
+            animation: dotPulse 0.3s ease;
+        }
+
+        @keyframes dotPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        .status-text {
+            color: #4ade80;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            width: 90%;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            background: rgba(30, 50, 100, 0.7);
+            transition: all 0.2s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+            background: rgba(50, 80, 140, 0.9);
+        }
+
+        .btn-icon { margin-right: 8px; }
+
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .heart { color: #ff6b6b; }
+
+        @media (max-width: 550px) {
+            .main-card { padding: 25px 18px; }
+            h1 { font-size: 1.3rem; }
+            .glow-text { font-size: 1.2rem; }
+            .avatar { width: 48px; height: 48px; }
+            .btn { width: 95%; font-size: 0.9rem; padding: 10px 16px; }
+            .dot { width: 9px; height: 9px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-space" id="starsSpace"></div>
+    <div class="nebula-space"></div>
+
+    <!-- Menú hamburguesa -->
+    <div class="menu-icon" id="menuIcon">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="menu-dropdown" id="menuDropdown">
+        <button id="btnVerRegistros">🎑 Ver todos los registros</button>
+        <button id="btnVerSugerencias">🎑 Ver todas las sugerencias</button>
+    </div>
+
+    <!-- Modal de contraseña -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <h3>🎑 Acceso restringido</h3>
+            <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
+            <button id="btnConfirmarPassword">Confirmar</button>
+            <button class="close-modal" id="btnCerrarModal">Cancelar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="banner">
+            <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
+            <span class="glow-text">Moonlight Staff</span>
+        </div>
+
+        <div class="main-card">
+            <h1>Bienvenido(a) a Moonlight Staff</h1>
+            
+            <div class="status-container">
+                <div class="hora-mx">
+                    <span>🌙</span>
+                    <span>México</span>
+                    <span id="hora">--:--:--</span>
+                </div>
+                
+                <div class="active-status">
+                    <div class="dot" id="dot1"></div>
+                    <div class="dot" id="dot2"></div>
+                    <div class="dot" id="dot3"></div>
+                    <span class="status-text">● activo</span>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <a href="https://whatsapp.com/channel/0029Vb6qIht5q08ZMPgVrA1y" class="btn" target="_blank">
+                    <span class="btn-icon"></span> Channel
+                </a>
+                <a href="info.html" class="btn">
+                    <span class="btn-icon"></span> Información
+                </a>
+                <a href="custom.html" class="btn">
+                    <span class="btn-icon"></span> Personalizar
+                </a>
+                <a href="staff.html" class="btn">
+                    <span class="btn-icon"></span> Staff
+                </a>
+                <a href="registro.html" class="btn">
+                    <span class="btn-icon"></span> Registro
+                </a>
+                <a href="sugerencias.html" class="btn">
+                    <span class="btn-icon"></span> Sugerencia
+                </a>
+                <a href="comandos.html" class="btn">
+                    <span class="btn-icon"></span> Comandos
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
+            <p style="font-size: 0.6rem; margin-top: 5px;">© 2026 - Moonlight Studios</p>
+        </div>
+    </div>
+
+    <script>
+        // Hora
+        function actualizarHoraMerida() {
+            const ahora = new Date();
+            const opciones = { timeZone: 'America/Merida', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('hora').textContent = ahora.toLocaleTimeString('es-MX', opciones);
+        }
+        actualizarHoraMerida();
+        setInterval(actualizarHoraMerida, 1000);
+
+        // Puntitos verdes animados
+        const dots = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3')];
+        let activeIndex = 0;
+        function animateDots() {
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[activeIndex].classList.add('active');
+            activeIndex = (activeIndex + 1) % dots.length;
+        }
+        animateDots();
+        setInterval(animateDots, 850);
+
+        // Menú hamburguesa
+        const menuIcon = document.getElementById('menuIcon');
+        const menuDropdown = document.getElementById('menuDropdown');
+        const passwordModal = document.getElementById('passwordModal');
+        
+        menuIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuDropdown.classList.toggle('show');
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!menuIcon.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.classList.remove('show');
+            }
+        });
+
+        let pendingView = null;
+
+        document.getElementById('btnVerRegistros').addEventListener('click', () => {
+            menuDropdown.classList.remove('show');
+            pendingView = 'registros';
+            passwordModal.style.display = 'flex';
+        });
+
+        document.getElementById('btnVerSugerencias').addEventListener('click', () => {
+            menuDropdown.classList.remove('show');
+            pendingView = 'sugerencias';
+            passwordModal.style.display = 'flex';
+        });
+
+        document.getElementById('btnConfirmarPassword').addEventListener('click', () => {
+            const password = document.getElementById('passwordInput').value;
+            if (password === '5599') {
+                passwordModal.style.display = 'none';
+                if (pendingView === 'registros') mostrarTodosLosRegistros();
+                else if (pendingView === 'sugerencias') mostrarTodasLasSugerencias();
+                mostrarAlerta('🔓 Acceso concedido', 'success');
+            } else {
+                mostrarAlerta('❌ Contraseña incorrecta', 'error');
+            }
+            document.getElementById('passwordInput').value = '';
+        });
+
+        document.getElementById('btnCerrarModal').addEventListener('click', () => {
+            passwordModal.style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        });
+
+        function mostrarAlerta(mensaje, tipo) {
+            const alerta = document.createElement('div');
+            alerta.className = `custom-alert ${tipo}`;
+            alerta.textContent = mensaje;
+            alerta.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1e293b;padding:12px 24px;border-radius:50px;z-index:4000;animation:slideDown 0.3s ease;font-weight:bold;border-left:4px solid;color:white;';
+            alerta.style.borderLeftColor = tipo === 'success' ? '#4ade80' : '#f87171';
+            document.body.appendChild(alerta);
+            setTimeout(() => alerta.remove(), 3000);
+        }
+
+        function mostrarTodosLosRegistros() {
+            const registros = JSON.parse(localStorage.getItem('moonlight_registros')) || {};
+            const registrosArray = Object.values(registros);
+            if (registrosArray.length === 0) {
+                mostrarAlerta('📭 No hay registros guardados', 'info');
+                return;
+            }
+            let html = `<div class="data-overlay" id="dataOverlay"><div class="data-panel"><h2>🎑 Registros (${registrosArray.length})</h2><button class="btn-cerrar-panel" id="btnCerrarPanel">❌ Cerrar</button>`;
+            registrosArray.forEach((reg, i) => {
+                html += `<div class="data-item"><strong>#${i+1}</strong><br><strong>👤 Nombre:</strong> ${escapeHtml(reg.nombre)}<br><strong>📧 Correo:</strong> ${escapeHtml(reg.correo)}<br><strong>📱 Número:</strong> ${escapeHtml(reg.numero)}<br><strong>📝 Descripción:</strong> ${escapeHtml(reg.descripcion)}<br><strong>📅 Fecha:</strong> ${reg.fecha}</div>`;
+            });
+            html += `</div></div>`;
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            document.body.appendChild(div);
+            document.getElementById('btnCerrarPanel').addEventListener('click', () => div.remove());
+            document.getElementById('dataOverlay').addEventListener('click', (e) => { if (e.target.id === 'dataOverlay') div.remove(); });
+        }
+
+        function mostrarTodasLasSugerencias() {
+            const sugerencias = JSON.parse(localStorage.getItem('moonlight_sugerencias')) || [];
+            if (sugerencias.length === 0) {
+                mostrarAlerta('📭 No hay sugerencias aún', 'info');
+                return;
+            }
+            let html = `<div class="data-overlay" id="dataOverlay"><div class="data-panel"><h2>🎑 Sugerencias (${sugerencias.length})</h2><button class="btn-cerrar-panel" id="btnCerrarPanel">❌ Cerrar</button>`;
+            sugerencias.forEach((sug, i) => {
+                html += `<div class="data-item"><strong>#${i+1}</strong><br><strong>📝 Sugerencia:</strong> ${escapeHtml(sug.texto)}<br><strong>📅 Fecha:</strong> ${sug.fecha}<br><strong>👤 Enviado por:</strong> ${escapeHtml(sug.usuario || 'Anónimo')}</div>`;
+            });
+            html += `</div></div>`;
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            document.body.appendChild(div);
+            document.getElementById('btnCerrarPanel').addEventListener('click', () => div.remove());
+            document.getElementById('dataOverlay').addEventListener('click', (e) => { if (e.target.id === 'dataOverlay') div.remove(); });
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Estrellas de fondo
+        function crearEstrellas() {
+            const container = document.getElementById('starsSpace');
+            if (!container) return;
+            for (let i = 0; i < 200; i++) {
+                const isBig = Math.random() < 0.2;
+                const star = document.createElement('div');
+                star.classList.add(isBig ? 'star-big' : 'star-small');
+                const size = isBig ? Math.random() * 3 + 2 : Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(star);
+            }
+        }
+        crearEstrellas();
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } } .custom-alert { animation: slideDown 0.3s ease; }`;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
