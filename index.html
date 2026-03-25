@@ -199,6 +199,74 @@
             background: rgba(100, 100, 100, 0.5) !important;
         }
 
+        /* Modal de información del bot */
+        .info-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2500;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .info-modal-content {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border-radius: 32px;
+            padding: 28px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .info-modal-content h2 {
+            color: #60a5fa;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .info-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .info-label {
+            color: #60a5fa;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .info-value {
+            color: white;
+        }
+
+        .btn-cerrar-info {
+            width: 100%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .data-overlay {
             position: fixed;
             top: 0;
@@ -314,6 +382,64 @@
             margin-bottom: 28px;
             font-weight: 600;
             text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Barra de búsqueda */
+        .search-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 60px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: #6b7280;
+        }
+
+        /* Burbujas de sugerencias */
+        .suggestions-bubbles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .suggestion-bubble {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #60a5fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-bubble:hover {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .suggestion-bubble:active {
+            transform: scale(0.95);
         }
 
         .status-container {
@@ -437,6 +563,8 @@
             .avatar { width: 48px; height: 48px; }
             .btn { width: 95%; font-size: 0.9rem; padding: 10px 16px; }
             .dot { width: 9px; height: 9px; }
+            .search-input { padding: 12px 16px; font-size: 0.9rem; }
+            .suggestion-bubble { padding: 6px 16px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -466,6 +594,13 @@
         </div>
     </div>
 
+    <!-- Modal de información del bot -->
+    <div class="info-modal" id="infoModal">
+        <div class="info-modal-content" id="infoModalContent">
+            <!-- Se llena con JS -->
+        </div>
+    </div>
+
     <div class="container">
         <div class="banner">
             <img class="avatar" src="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png" alt="Moonlight Staff">
@@ -476,6 +611,12 @@
             <h1>Bienvenido(a) a Moonlight Staff</h1>
             
             <div class="status-container">
+                <!-- Barra de búsqueda -->
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="⭐ Buscar información de bots...">
+                    <div class="suggestions-bubbles" id="suggestionsBubbles"></div>
+                </div>
+                
                 <div class="hora-mx">
                     <span>🌙</span>
                     <span>México</span>
@@ -520,11 +661,107 @@
 
         <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
-            <p style="font-size: 0.6rem; margin-top: 5px;">© 2026</p>
+            <p style="font-size: 0.6rem; margin-top: 5px;">© 2025</p>
         </div>
     </div>
 
     <script>
+        // Datos de los bots
+        const botsInfo = {
+            moonlight: {
+                nombre: "Moonlight",
+                creador: "StarLyn",
+                baileys: "7.0.0-rc.9",
+                modo: "Público",
+                nodejs: "v24+",
+                version: "2.0.0",
+                sesion: "Ubuntu Chrome",
+                plataforma: "Linux",
+                hecho_para: "WhatsApp",
+                host: "Sky Ultra plus"
+            },
+            alya: {
+                nombre: "Alya",
+                creador: "Edwin",
+                baileys: "7.0.0-rc.6",
+                modo: "Público",
+                nodejs: "v18+",
+                version: "Beta",
+                sesion: "Ubuntu Chrome",
+                plataforma: "Linux",
+                hecho_para: "WhatsApp",
+                host: "Sky Ultra plus"
+            }
+        };
+
+        // Elementos de búsqueda
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBubbles = document.getElementById('suggestionsBubbles');
+        const infoModal = document.getElementById('infoModal');
+        const infoModalContent = document.getElementById('infoModalContent');
+
+        // Mostrar sugerencias según lo que se escribe
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            suggestionsBubbles.innerHTML = '';
+            
+            if (query === '') {
+                // Mostrar ambos bots como sugerencias
+                mostrarBurbujas(['Moonlight', 'Alya']);
+            } else {
+                const sugerencias = [];
+                if ('moonlight'.includes(query)) sugerencias.push('Moonlight');
+                if ('alya'.includes(query)) sugerencias.push('Alya');
+                mostrarBurbujas(sugerencias);
+            }
+        });
+
+        function mostrarBurbujas(nombres) {
+            suggestionsBubbles.innerHTML = '';
+            nombres.forEach(nombre => {
+                const bubble = document.createElement('div');
+                bubble.className = 'suggestion-bubble';
+                bubble.textContent = nombre;
+                bubble.onclick = () => mostrarInfoBot(nombre.toLowerCase());
+                suggestionsBubbles.appendChild(bubble);
+            });
+        }
+
+        function mostrarInfoBot(botKey) {
+            const bot = botsInfo[botKey];
+            if (!bot) return;
+            
+            infoModalContent.innerHTML = `
+                <h2>⭐ ${bot.nombre}</h2>
+                <div class="info-item"><span class="info-label">❀ Nombre:</span> <span class="info-value">${bot.nombre}</span></div>
+                <div class="info-item"><span class="info-label">❀ Creador:</span> <span class="info-value">${bot.creador}</span></div>
+                <div class="info-item"><span class="info-label">❀ Baileys:</span> <span class="info-value">${bot.baileys}</span></div>
+                <div class="info-item"><span class="info-label">❀ Modo:</span> <span class="info-value">${bot.modo}</span></div>
+                <div class="info-item"><span class="info-label">❀ NodeJs:</span> <span class="info-value">${bot.nodejs}</span></div>
+                <div class="info-item"><span class="info-label">❀ Versión:</span> <span class="info-value">${bot.version}</span></div>
+                <div class="info-item"><span class="info-label">❀ Sesión:</span> <span class="info-value">${bot.sesion}</span></div>
+                <div class="info-item"><span class="info-label">❀ Plataforma:</span> <span class="info-value">${bot.plataforma}</span></div>
+                <div class="info-item"><span class="info-label">❀ Hecho para:</span> <span class="info-value">${bot.hecho_para}</span></div>
+                <div class="info-item"><span class="info-label">❀ Host:</span> <span class="info-value">${bot.host}</span></div>
+                <button class="btn-cerrar-info" id="btnCerrarInfo">Cerrar</button>
+            `;
+            
+            infoModal.style.display = 'flex';
+            document.getElementById('btnCerrarInfo').addEventListener('click', () => {
+                infoModal.style.display = 'none';
+            });
+        }
+
+        // Cerrar modal al hacer clic fuera
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+
+        // Mostrar burbujas iniciales
+        mostrarBurbujas(['Moonlight', 'Alya']);
+
         // Hora
         function actualizarHoraMerida() {
             const ahora = new Date();
@@ -555,7 +792,6 @@
             menuDropdown.classList.toggle('show');
         });
 
-        // Cerrar menú al hacer clic fuera
         document.addEventListener('click', (e) => {
             if (!menuIcon.contains(e.target) && !menuDropdown.contains(e.target)) {
                 menuDropdown.classList.remove('show');
@@ -648,7 +884,6 @@
             return div.innerHTML;
         }
 
-        // Estrellas de fondo
         function crearEstrellas() {
             const container = document.getElementById('starsSpace');
             if (!container) return;
