@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Moonlight Staff - Prefijo de Bots</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L57hdhqM/Screenshot-2026-03-22-19-38-30-712-com-whatsapp.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 40%, #010118, #0a0a2a, #000018);
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Fondo espacial */
+        .stars-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star-big {
+            position: absolute;
+            background: #aaccff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkleSpace 2s infinite alternate;
+        }
+
+        .star-small {
+            position: absolute;
+            background: #88aaff;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkleSpace 3s infinite alternate;
+        }
+
+        @keyframes twinkleSpace {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .nebula-space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(50, 80, 200, 0.12), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Banner */
+        .banner-container {
+            margin-bottom: 30px;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Título principal */
+        .main-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .main-title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #fff, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Burbujas de prefijos */
+        .bubbles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .bubble-card {
+            background: rgba(10, 20, 50, 0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .bubble-card:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .bubble-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .bubble-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .bubble-title h2 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .bubble-title span {
+            color: #60a5fa;
+            font-size: 0.9rem;
+            margin-left: 8px;
+        }
+
+        /* Lista de prefijos */
+        .prefix-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .prefix-item {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 60px;
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #60a5fa;
+            font-family: monospace;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .prefix-item:hover {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Mensaje de solicitud */
+        .request-message {
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .request-message p {
+            color: #a0c0ff;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .request-message strong {
+            color: #60a5fa;
+        }
+
+        /* Botón contacto */
+        .btn-contacto {
+            display: inline-block;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .btn-contacto:active {
+            transform: scale(0.97);
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.3);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:active {
+            transform: scale(0.97);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .heart {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 550px) {
+            .main-title h1 {
+                font-size: 1.8rem;
+            }
+            .bubble-title h2 {
+                font-size: 1.2rem;
+            }
+            .prefix-item {
+                padding: 6px 14px;
+                font-size: 1.1rem;
+            }
+            .btn-contacto {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-space" id="starsSpace"></div>
+    <div class="nebula-space"></div>
+
+    <div class="container">
+        <!-- Banner grande -->
+        <div class="banner-container">
+            <img class="banner-img" src="https://i.postimg.cc/Gm4r2r5b/58acc8ab5e057f8c354c9fddf63b78da.jpg" alt="Moonlight Staff Banner">
+        </div>
+
+        <!-- Título principal -->
+        <div class="main-title">
+            <h1>✨ Prefijo de Bots ✨</h1>
+        </div>
+
+        <!-- Burbujas de prefijos -->
+        <div class="bubbles-container">
+            <!-- Sub-Bot -->
+            <div class="bubble-card">
+                <div class="bubble-title">
+                    <div class="bubble-icon">🤖</div>
+                    <h2>Sub-Bot <span>prefijos disponibles</span></h2>
+                </div>
+                <div class="prefix-list">
+                    <div class="prefix-item">[ . ]</div>
+                    <div class="prefix-item">[ / ]</div>
+                    <div class="prefix-item">[ # ]</div>
+                    <div class="prefix-item">[ ! ]</div>
+                </div>
+            </div>
+
+            <!-- Main Bot -->
+            <div class="bubble-card">
+                <div class="bubble-title">
+                    <div class="bubble-icon">⭐</div>
+                    <h2>Main Bot <span>prefijos disponibles</span></h2>
+                </div>
+                <div class="prefix-list">
+                    <div class="prefix-item">[ / ]</div>
+                    <div class="prefix-item">[ + ]</div>
+                    <div class="prefix-item">[ . ]</div>
+                    <div class="prefix-item">[ ! ]</div>
+                    <div class="prefix-item">[ # ]</div>
+                    <div class="prefix-item">[ $ ]</div>
+                    <div class="prefix-item">[ ÷ ]</div>
+                </div>
+            </div>
+
+            <!-- Owner Bot -->
+            <div class="bubble-card">
+                <div class="bubble-title">
+                    <div class="bubble-icon">👑</div>
+                    <h2>Owner Bot <span>prefijos disponibles</span></h2>
+                </div>
+                <div class="prefix-list">
+                    <div class="prefix-item">[ / ]</div>
+                    <div class="prefix-item">[ + ]</div>
+                    <div class="prefix-item">[ . ]</div>
+                    <div class="prefix-item">[ ! ]</div>
+                    <div class="prefix-item">[ # ]</div>
+                    <div class="prefix-item">[ $ ]</div>
+                    <div class="prefix-item">[ ÷ ]</div>
+                    <div class="prefix-item">[ ~ ]</div>
+                    <div class="prefix-item">[ & ]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensaje de solicitud -->
+        <div class="request-message">
+            <p>📌 <strong>Solicita cambiar tu prefijo</strong> con un moderador o owner</p>
+            <p>🔹 Contacta a nuestro equipo para personalizar tu experiencia</p>
+        </div>
+
+        <!-- Botón de contacto WhatsApp -->
+        <a href="https://wa.me/5219992042046?text=Hola%2C%20quiero%20solicitar%20un%20cambio%20de%20prefijo%20para%20mi%20bot" 
+           class="btn-contacto" 
+           target="_blank">
+            📱 Solicitar cambio de prefijo
+        </a>
+
+        <div class="center">
+            <a href="index.html" class="back-btn">← Volver al inicio</a>
+        </div>
+
+        <div class="footer">
+            <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
+            <p style="font-size: 0.6rem; margin-top: 5px;">© 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Estrellas de fondo
+        function crearEstrellas() {
+            const container = document.getElementById('starsSpace');
+            if (!container) return;
+            for (let i = 0; i < 200; i++) {
+                const isBig = Math.random() < 0.2;
+                const star = document.createElement('div');
+                star.classList.add(isBig ? 'star-big' : 'star-small');
+                const size = isBig ? Math.random() * 3 + 2 : Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(star);
+            }
+        }
+        crearEstrellas();
+    </script>
+</body>
+</html>
