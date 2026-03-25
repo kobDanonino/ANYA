@@ -388,6 +388,7 @@
         .search-container {
             margin-bottom: 20px;
             position: relative;
+            width: 100%;
         }
 
         .search-input {
@@ -419,6 +420,7 @@
             justify-content: center;
             gap: 12px;
             margin-top: 12px;
+            min-height: 50px;
         }
 
         .suggestion-bubble {
@@ -440,6 +442,16 @@
 
         .suggestion-bubble:active {
             transform: scale(0.95);
+        }
+
+        .no-results {
+            color: #94a3b8;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            width: 100%;
         }
 
         .status-container {
@@ -661,7 +673,7 @@
 
         <div class="footer">
             <p>Hecho con <span class="heart">❤️</span> Moonlight Staff 🎑</p>
-            <p style="font-size: 0.6rem; margin-top: 5px;">© 2025</p>
+            <p style="font-size: 0.6rem; margin-top: 5px;">© 2026</p>
         </div>
     </div>
 
@@ -700,31 +712,41 @@
         const infoModal = document.getElementById('infoModal');
         const infoModalContent = document.getElementById('infoModalContent');
 
-        // Mostrar sugerencias según lo que se escribe
-        searchInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase().trim();
+        // Función para mostrar resultados de búsqueda
+        function actualizarBusqueda() {
+            const query = searchInput.value.toLowerCase().trim();
             suggestionsBubbles.innerHTML = '';
             
             if (query === '') {
-                // Mostrar ambos bots como sugerencias
-                mostrarBurbujas(['Moonlight', 'Alya']);
-            } else {
-                const sugerencias = [];
-                if ('moonlight'.includes(query)) sugerencias.push('Moonlight');
-                if ('alya'.includes(query)) sugerencias.push('Alya');
-                mostrarBurbujas(sugerencias);
+                // No mostrar nada cuando está vacío
+                return;
             }
-        });
-
-        function mostrarBurbujas(nombres) {
-            suggestionsBubbles.innerHTML = '';
-            nombres.forEach(nombre => {
-                const bubble = document.createElement('div');
-                bubble.className = 'suggestion-bubble';
-                bubble.textContent = nombre;
-                bubble.onclick = () => mostrarInfoBot(nombre.toLowerCase());
-                suggestionsBubbles.appendChild(bubble);
-            });
+            
+            // Buscar coincidencias
+            const resultados = [];
+            if (query === 'moonlight' || query === 'moon' || query === 'light' || 'moonlight'.includes(query)) {
+                resultados.push('Moonlight');
+            }
+            if (query === 'alya' || 'alya'.includes(query)) {
+                resultados.push('Alya');
+            }
+            
+            if (resultados.length > 0) {
+                // Mostrar burbujas con los resultados
+                resultados.forEach(nombre => {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'suggestion-bubble';
+                    bubble.textContent = nombre;
+                    bubble.onclick = () => mostrarInfoBot(nombre.toLowerCase());
+                    suggestionsBubbles.appendChild(bubble);
+                });
+            } else {
+                // Mostrar mensaje de no resultados
+                const noResultMsg = document.createElement('div');
+                noResultMsg.className = 'no-results';
+                noResultMsg.textContent = `⭐ No se encontraron resultados para "${query}"`;
+                suggestionsBubbles.appendChild(noResultMsg);
+            }
         }
 
         function mostrarInfoBot(botKey) {
@@ -732,7 +754,7 @@
             if (!bot) return;
             
             infoModalContent.innerHTML = `
-                <h2>⭐ ${bot.nombre}</h2>
+                <h2>🤖 ${bot.nombre}</h2>
                 <div class="info-item"><span class="info-label">❀ Nombre:</span> <span class="info-value">${bot.nombre}</span></div>
                 <div class="info-item"><span class="info-label">❀ Creador:</span> <span class="info-value">${bot.creador}</span></div>
                 <div class="info-item"><span class="info-label">❀ Baileys:</span> <span class="info-value">${bot.baileys}</span></div>
@@ -752,15 +774,15 @@
             });
         }
 
+        // Evento de búsqueda en tiempo real
+        searchInput.addEventListener('input', actualizarBusqueda);
+
         // Cerrar modal al hacer clic fuera
         infoModal.addEventListener('click', (e) => {
             if (e.target === infoModal) {
                 infoModal.style.display = 'none';
             }
         });
-
-        // Mostrar burbujas iniciales
-        mostrarBurbujas(['Moonlight', 'Alya']);
 
         // Hora
         function actualizarHoraMerida() {
